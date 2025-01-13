@@ -19,11 +19,11 @@
                 <header>
                     <nav>
                         <div id="nav-left">
-                            <a href="/">Accueil</a>
+                            <a href="index.php">Home page</a>
                             <?php
                             // if(App\Session::isAdmin()){
                                 ?>
-                                <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a>
+                                <a href="index.php?ctrl=home&action=users">See all users</a>
                             <?php
                         //  } 
                          ?>
@@ -39,9 +39,9 @@
                             }
                             else{
                                 ?>
-                                <a href="index.php?ctrl=security&action=login">Connexion</a>
-                                <a href="index.php?ctrl=security&action=register">Inscription</a>
-                                <a href="index.php?ctrl=forum&action=index">Liste des catégories</a>
+                                <a href="index.php?ctrl=security&action=login">Sign In</a>
+                                <a href="index.php?ctrl=security&action=register">Register</a>
+                                <a href="index.php?ctrl=forum&action=index">List of categories</a>
                             <?php
                             }
                         ?>
@@ -54,7 +54,7 @@
                 </main>
             </div>
             <footer>
-                <p>&copy; <?= date_create("now")->format("Y") ?> - <a href="#">Règlement du forum</a> - <a href="#">Mentions légales</a></p>
+                <p>&copy; <?= date_create("now")->format("Y") ?> - <a href="#">Forum Rules</a> - <a href="#">Legal notice</a></p>
             </footer>
         </div>
         
