@@ -8,7 +8,21 @@
 <?php
 foreach($topics as $topic ){ ?>
     <p><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic ?></a> par <?= $topic->getUser() ?></p> 
-<?php }
+<?php
+}
+?>
 
+<p>New Topic:</p>
+<form action="index.php?ctrl=forum&action=createTopic&id=<?= $category->getId()?>" method="post">
+    <label for="title">Title:</label>
+    <br>
+    <input type="text" name="title" id="title"> </input>
+    <br>
+    <label for="">Premier post du topic:</label>
+    <br>
+    <textarea name="firstPost" id=""></textarea>
+    <input type="submit" name="submit" value="Submit" id="submit">
+</form>
 
+<!-- PREMIER POST DU TOPIC -->
 
