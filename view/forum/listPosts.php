@@ -1,7 +1,6 @@
 <?php
     $topic = $result["data"]['topic']; 
     $posts = $result["data"]['posts']; 
-    $content = 
 ?>
 
 <h1>Posts</h1>

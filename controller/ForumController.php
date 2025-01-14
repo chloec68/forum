@@ -35,6 +35,12 @@ class ForumController extends AbstractController implements ControllerInterface{
         $category = $categoryManager->findOneById($id);
         $topics = $topicManager->findTopicsByCategory($id);
 
+        if(empty($topics)){
+            echo "no post yet";
+            //ajouter lien "en créer un"
+            exit;
+        };
+
         return [
             "view" => VIEW_DIR."forum/listTopics.php",
             "meta_description" => "Liste des topics par catégorie : ".$category,
@@ -50,6 +56,11 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topicManager = new TopicManager();
         $topic = $topicManager ->findOneById($id);
         $posts = $postManager->findPostsByTopic($id);
+
+        if(empty($posts)){
+            echo "no post yet";
+            exit;
+        };
 
         return [
             "view" => VIEW_DIR. "forum/listPosts.php",

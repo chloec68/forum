@@ -66,7 +66,20 @@ abstract class Manager{
             die();
         }
     }
-    
+// *******************************************************************
+    public function edit($id){
+        $sql = "UPDATE FROM ".$this->tableName."
+                SET column_".$this->tableName." =:column =newValue 
+                WHERE id_".$this->tableName." =:id
+                ";
+        
+        return DAO::update($sql,[
+                                'id'=> $id,
+                                'column'=>$column,
+                                'newValue'=>$newValue]);
+    }
+// *******************************************************************
+
     public function delete($id){
         $sql = "DELETE FROM ".$this->tableName."
                 WHERE id_".$this->tableName." = :id
