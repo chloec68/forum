@@ -6,12 +6,12 @@ use App\Entity;
 
 final Class Post extends Entity{
     private $id;
-    private $text;
+    private $content;
     private $dateOfCreation; 
     private $topic;
     private $user;
 
-    private function __construct($data){
+    public function __construct($data){
         $this->hydrate($data);
     }
 
@@ -28,7 +28,7 @@ final Class Post extends Entity{
      */
 
     public function setId($id){
-        $this->id;
+        $this->id=$id;
         return $this;
     }
 
@@ -36,16 +36,16 @@ final Class Post extends Entity{
      * Get the value of text
      */ 
 
-    public function getText(){
-        return $this->text;
+    public function getContent(){
+        return $this->content;
     }
 
      /**
      * Set the value of text
      */
 
-    public function setText($text){
-        $this->text;
+    public function setContent($content){
+        $this->content=$content;
         return $this;
     }
 
@@ -62,7 +62,7 @@ final Class Post extends Entity{
      */
 
     public function setDateOfCreation($dateOfCreation){
-        $this->dateOfCreation;
+        $this->dateOfCreation=$dateOfCreation;
         return $this;
     }
 
@@ -79,7 +79,7 @@ final Class Post extends Entity{
      */
 
     public function setTopic($topic){
-        $this->topic;
+        $this->topic=$topic;
         return $this;
     }
 
@@ -96,7 +96,14 @@ final Class Post extends Entity{
      */
 
     public function setUser($user){
-        $this->user;
+        $this->user=$user;
         return $this;   
     }
+
+
+    public function __toString() {
+        // Make sure to return a string representation of the object
+        return $this->content . "<br>By: " . $this->user . ", posted on : " . $this->dateOfCreation ;
+    }
 }
+
