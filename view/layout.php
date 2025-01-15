@@ -8,6 +8,12 @@
         <script src="https://cdn.tiny.cloud/1/zg3mwraazn1b2ezih16je1tc6z7gwp5yd4pod06ae5uai8pa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
         <link rel="stylesheet" href="<?= PUBLIC_DIR ?>/css/style.css">
+        <!-- CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- FONTS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
         <title>FORUM</title>
     </head>
     <body>
@@ -18,8 +24,12 @@
                 <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
                 <header>
                     <nav>
+                        <div id="nav-logo">
+                            <p>Forum</p>
+                        </div>
                         <div id="nav-left">
                             <a href="index.php">Home page</a>
+                            <a href="index.php?ctrl=forum&action=index">List of categories</a>
                             <?php
                             // if(App\Session::isAdmin()){
                                 ?>
@@ -29,6 +39,7 @@
                          ?>
                         </div>
                         <div id="nav-right">
+                            <input class="search" type="text" ><i class="fa-solid fa-magnifying-glass"></i>
                         <?php
                             // si l'utilisateur est connecté 
                             if(App\Session::getUser()){
@@ -39,9 +50,9 @@
                             }
                             else{
                                 ?>
-                                <a href="index.php?ctrl=security&action=login">Sign In</a>
-                                <a href="index.php?ctrl=security&action=register">Register</a>
-                                <a href="index.php?ctrl=forum&action=index">List of categories</a>
+                                <a class="sign signIn" href="index.php?ctrl=security&action=login">Sign In</a>
+                                <a class="sign signUp" href="index.php?ctrl=security&action=register">Sign Up</a>
+                                
                             <?php
                             }
                         ?>
@@ -54,7 +65,27 @@
                 </main>
             </div>
             <footer>
-                <p>&copy; <?= date_create("now")->format("Y") ?> - <a href="#">Forum Rules</a> - <a href="#">Legal notice</a></p>
+                <div id="footer-left">
+                    <p>Get Started</p>
+                    <a href="">Today's post</a>
+                    <a href="">Introduce yourself</a>
+                    <a href="">Whatever</a>
+                </div>
+                <div id="footer-middle">
+                    <p>Info</p>
+                    <a href="#">Contact us</a>
+                    <a href="#">Guidelines</a>
+                    <a href="#">Legal notice</a>
+                    <p id="small">&copy; <?= date_create("now")->format("Y") ?></p>
+                </div>
+                <div id="footer-right">
+                    <p>Follow us</p>
+                    <div class="socials"><img src="public/icons/facebook.png" alt=""><a href="#">Facebook</a></div>
+                    <div class="socials"><img src="public/icons/tik-tok.png" alt=""><a href="#">Twitter</a></div>
+                    <div class="socials"><img src="public/icons/twitter.png" alt=""><a href="#">Tik Tok</a></div>
+    
+                </div>
+               
             </footer>
         </div>
         

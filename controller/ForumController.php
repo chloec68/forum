@@ -180,5 +180,17 @@ class ForumController extends AbstractController implements ControllerInterface{
             ]
         ];
     }
+
+    function updatePost(){
+        
+        // je récupère le tableau de données et le stocke dans la variable $data si l'user clique sur modifier :
+        if(isset($_POST['update'])){
+            $data = $_POST['content']; 
+        }
+        
+
+    }
+
+
 }
 
