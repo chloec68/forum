@@ -82,32 +82,26 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
         // *******************************************************************
         public function edit($id,$data){
 
-            $data = []; 
+            if(empty($data)){
+                return false;
+            }
+
             $setPart = [];
 
             foreach($data as $column => $value){
                 $setPart[] = "$column = ?";
-                $data[] = $value;
             }
-
-            $data[] = $id;
 
             $setQuery = implode(', ', $setPart);
 
-            $sql = "UPDATE " . $this->tableName . "SET $setQuery WHERE id_ = ?";
+            $sql = "UPDATE " . $this->tableName . "SET $setQuery WHERE id_" . $this->tableName . " = ?";
+
+            $params=array_values($data); // Récupérer les valeurs des données (en les convertissant en un tableau)
+            $params[] = $id;
 
             return DAO::update($sql,$data);
-            
-            // return DAO::update($sql,[
-            //                         'id'=> $id,
-            //                         'newValue'=>$newValue]);
         }
-        // si plusieurs éléments ça fonctionnera pas (SET)
-        // il faut un foreach : on lui envoie un tableau de data 
-        
-        // On passe un tableau de données à la fonction ($data) 
-    
-    // *******************************************************************
+        // *******************************************************************
 
 
     public function delete($id){

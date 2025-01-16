@@ -6,7 +6,6 @@ use App\AbstractController;
 use App\ControllerInterface;
 use Model\Managers\CategoryManager;
 use Model\Managers\TopicManager;
-
 use Model\Managers\PostManager;
 
 class ForumController extends AbstractController implements ControllerInterface{
@@ -71,6 +70,7 @@ class ForumController extends AbstractController implements ControllerInterface{
             ]
         ];
     }
+
 
     function createCategory(){
         $categoryManager = new CategoryManager();
@@ -177,7 +177,31 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "posts" => $posts
                 ]
             ];
-  
+    }
+
+    editCategory($idCategory){
+        $categoryManager = new CategoryManager(); 
+        
+        $updatedCategory = filter_input(INPUT_POST,"updatedCategory",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // var_dump($updatedCategory)
+        // die; 
+
+        $category = $categoryManager->findOneById($idCategory);
+        //var_dump($category)
+        //die;
+
+        if($updatedCategory){
+            $categoryManager->update(["updatedCategory"=>$updatedCategory]);
+        }
+
+        return [
+            "view" => VIEW_DIR. "forum/listCategories.php",
+            "meta_description" => "New category",
+            "data" => [
+                "updatedCategory" => $updatedCategory,
+                "category" => $category
+            ]
+        ]
     }
 
 }

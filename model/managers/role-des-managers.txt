@@ -9,3 +9,13 @@ LES MANAGERS sont responsables de la LOGIQUE METIER liée aux ENTITES de l'appli
 
 x ils ne se préoccupent PAS de la manière dont les données sont présentées à l'utilisateur 
 x ils ne se préoccupent PAS de la logique de gesion des sessions 
+
+
+
+
+"Les Managers sont là pour créer si besoin des méthodes avec les requêtes SQL adéquates
+(comme vous avez du le faire pour la liste des topics par catégorie ou la liste des posts par topic)
+ 
+En revanche, pour toute ce qui est "ajout" (ajouter un post dans un topic, ajouter un topic dans une catégorie),
+le framework vous fournit déjà une méthode "add" .Donc en principe pour tous vos ajouts, vous ne devriez pas
+avoir besoin de créer de requêtes INSERT INTO dans votre projet"

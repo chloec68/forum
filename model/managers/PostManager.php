@@ -28,8 +28,4 @@ class PostManager extends Manager{
         );
     }
 
-    function updatePost(){
-        
-    }
-
 }
