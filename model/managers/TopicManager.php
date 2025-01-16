@@ -27,6 +27,10 @@ class TopicManager extends Manager{
             $this->className
         );
     }
+
+    function updateTopic(){
+        
+    }
     
 }
 

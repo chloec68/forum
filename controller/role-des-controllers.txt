@@ -1,0 +1,12 @@
+
+
+
+LES CONTROLLERS 
+
+=> ils sont responsables de LA GESTION DES REQUÊTES des UTILISATEURS
+=> ils sont responsables de LA LOGIQUE D'AFFICHAGE
+=> ils sont responsables de LA COORDINATION DES ACTIONS entre la VUE, le modèle (LES MANAGERS) et la SESSION 
+= c'est un INTERMEDIAIRE entre LA LOGIQUE METIER et CE QUI EST PRESENTE à l'utilisateur 
+= ils vérifient les permissions d'enregistrer des sessions utilsateur, de valider des données venant de l'utilisateur,etc. 
+
+Le CONTROLLER appelle le MANAGER pour effectuer l'opération sur la BDD : le CONTROLLER se charge de la coordination

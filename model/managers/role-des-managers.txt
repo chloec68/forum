@@ -1,0 +1,11 @@
+
+
+
+LES MANAGERS sont responsables de la LOGIQUE METIER liée aux ENTITES de l'application. 
+=> ils sont responsables de l'interaction avec la BDD (via la classe DAO.php) 
+= ils sont responsables de la gestion des ENTITES
+= ils gèrent des objets (Topic,Post,Category,User) 
+= ils récupèrent des données et les manipulent (mise à jour,suppression,ajout,etc)
+
+x ils ne se préoccupent PAS de la manière dont les données sont présentées à l'utilisateur 
+x ils ne se préoccupent PAS de la logique de gesion des sessions 

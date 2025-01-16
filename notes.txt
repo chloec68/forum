@@ -1,0 +1,24 @@
+
+
+1 - l'utilisateur arrive sur la page d'acceuil : 
+
+Le HomeController est appelé pour récupérer les données nécessaires et afficher la vue correspondante (via la méthode index() qui retourne la vue home.php ) ;
+
+2 - l'utilisateur clique sur "categories" : 
+
+Le ForumController est appelé pour récupérer les données nécessaires et afficher la vue via la méthode index() de ce Controller ; 
+La méthode index() du ForumController récupère la liste des catégories et les affiche dans la vue (listCategories.php)
+
+3 - l'utilisateur clique sur un nom de catégorie : 
+
+La méthode listTopicsByCategory($id) du ForumController est appelée ; 
+( ... )
+
+4- l'utilisateur décide de créer un nouveau topic et ajoute un titre dans le champ, puis il clique sur submit ; 
+
+Une requête POST est envoyée à l'action/la méthode createTopic() du ForumController 
+Cette méthode filtre et valide les données du formulaire ; 
+Puis elle appelle des méthodes (notamment add) du TopicManager
+(Le TopicManager ne comprend pas de méthode add, mais hérite des méthodes du Manager qui la comprend).
+
+5- La méthode add() du Manager s'occupe de la logique métier = s'occupe de tout ce qui concerne la mise à jour de la BDD = elle prépare et exécute la requête SQL (via le DAO)

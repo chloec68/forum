@@ -37,7 +37,7 @@ class ForumController extends AbstractController implements ControllerInterface{
 
         if(empty($topics)){
             echo "no post yet";
-            //ajouter lien "en créer un"
+            //ajouter lien "en créer un" ?
             exit;
         };
 
@@ -72,6 +72,28 @@ class ForumController extends AbstractController implements ControllerInterface{
         ];
     }
 
+    function createCategory(){
+        $categoryManager = new CategoryManager();
+
+        $categoryName = filter_input(INPUT_POST,"categoryName",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // var_dump($newCategoryName);
+        // die;
+
+        if($categoryName){
+            $categoryManager->add(["categoryName" => $categoryName]);
+        }
+
+        $categories = $categoryManager->findall(["categoryName","ASC"]);
+
+        return [
+            "view" => VIEW_DIR. "forum/listCategories.php",
+            "meta_description" => "New Category",
+            "data" => [
+                "categories" =>$categories,
+                "categoryName"=>$categoryName
+            ]
+        ];
+    }
 
     // creation de fonction qui permet d'ajouter un topic à une catégorie
     // je mets en paramètres l'id de la catégorie afin de la récupérer dans l'url
@@ -157,40 +179,6 @@ class ForumController extends AbstractController implements ControllerInterface{
             ];
   
     }
-
-    function createCategory(){
-        $categoryManager = new CategoryManager();
-
-        $categoryName = filter_input(INPUT_POST,"categoryName",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // var_dump($newCategoryName);
-        // die;
-
-        if($categoryName){
-            $categoryManager->add(["categoryName" => $categoryName]);
-        }
-
-        $categories = $categoryManager->findall(["categoryName","ASC"]);
-
-        return [
-            "view" => VIEW_DIR. "forum/listCategories.php",
-            "meta_description" => "New Category",
-            "data" => [
-                "categories" =>$categories,
-                "categoryName"=>$categoryName
-            ]
-        ];
-    }
-
-    function updatePost(){
-        
-        // je récupère le tableau de données et le stocke dans la variable $data si l'user clique sur modifier :
-        if(isset($_POST['update'])){
-            $data = $_POST['content']; 
-        }
-        
-
-    }
-
 
 }
 

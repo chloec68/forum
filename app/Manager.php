@@ -1,10 +1,16 @@
 <?php
-namespace App;
+namespace App; // permet de structurer le projet
 
-abstract class Manager{
+/* La classe Manager fournit une abstraction pour interagir avec une base de données.
+ Elle permet d'exécuter une requête SELECT * sur une table spécifique et de retourner les résultats sous forme d'objets.
+ La méthode findAll permet de récupérer tous les enregistrements d'une table, avec un tri optionnel basé sur un champ et un ordre donné.
+ Les classes qui étendent Manager doivent définir le nom de la table ($tableName) et la classe des objets à hydrater ($className).
+ La gestion de la base de données est effectuée par la classe DAO, notamment pour la connexion et l'exécution des requêtes. */
 
-    protected function connect(){
-        DAO::connect();
+abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas être instanciée, elle doit être étendue par d'autres classes pour être utilisée 
+
+    protected function connect(){ //méthode PROTEGEE => elle peut être utilisée dans cette classes et les classes qui en héritent (c'est tout)
+        DAO::connect(); // appelle d'une méthode statique connect() sur la Classe DAO => on s'assure que connexion à BDD soit établie avant toute opération 
     }
 
     /**
@@ -13,19 +19,25 @@ abstract class Manager{
      * @param array $order an array with field and order option
      * @return Collection a collection of objects hydrated by DAO, which are results of the request sent
      */
-    public function findAll($order = null){
 
-        $orderQuery = ($order) ?                 
+    // Cette méthode retourne une collection d'objets 
+    // Les objets contiennent les résultats de la requête SQL 
+    // Ces objets sont hydratés par la méthode getMultipleResults()
+    // A partir des résultats renvoyés par la requête DAO::select($sql)
+    public function findAll($order = null){ // méthode PUBLIQUE (appelable depuis partout dans le code) de la class Manager // cette classe prend un paramètre OPTIONNEL $order
+                                            // la syntaxe $order = NULL signifie que l'argument est optionnel 
+        $orderQuery = ($order) ?   // Si le paramètre optionnel $order est fourni, la méthode findAll construit une CLAUSE ORDER BY // si $order est null ou vide, clause non incluse dans requête               
             "ORDER BY ".$order[0]. " ".$order[1] :
             "";
 
-        $sql = "SELECT *
+        $sql = "SELECT * 
                 FROM ".$this->tableName." a
-                ".$orderQuery;
+                ".$orderQuery; // requête SQL dynamique car la table = $this->tableName => suppose que la classe qui ETEND Manager définit la propriété $tableName
+                                // la variable $orderQuery contient la partie de la requête destinée à trier les résultats si elle est définie 
 
-        return $this->getMultipleResults(
-            DAO::select($sql), 
-            $this->className
+        return $this->getMultipleResults( //méthode (définie plus bas) appelée pour transformer résultats obtenus en objet de type className 
+            DAO::select($sql), // appel de la méthode statique select de la Class DAO responsable de l'exécution de la requête 
+            $this->className // les résultats bruts de la BDD pris
         );
     }
     
@@ -69,18 +81,31 @@ abstract class Manager{
 
         // *******************************************************************
         public function edit($id,$data){
-            $sql = "UPDATE ". $this->tableName ."
-                    SET " . $column . "=:newValue 
-                    WHERE id_" . $this->tableName . " =:id";
+
+            $data = []; 
+            $setPart = [];
+
+            foreach($data as $column => $value){
+                $setPart[] = "$column = ?";
+                $data[] = $value;
+            }
+
+            $data[] = $id;
+
+            $setQuery = implode(', ', $setPart);
+
+            $sql = "UPDATE " . $this->tableName . "SET $setQuery WHERE id_ = ?";
+
+            return DAO::update($sql,$data);
             
-            return DAO::update($sql,[
-                                    'id'=> $id,
-                                    'newValue'=>$newValue]);
+            // return DAO::update($sql,[
+            //                         'id'=> $id,
+            //                         'newValue'=>$newValue]);
         }
         // si plusieurs éléments ça fonctionnera pas (SET)
         // il faut un foreach : on lui envoie un tableau de data 
         
-        // 1- On passe un tableau de données à la fonction ($data)
+        // On passe un tableau de données à la fonction ($data) 
     
     // *******************************************************************
 
@@ -93,11 +118,11 @@ abstract class Manager{
         return DAO::delete($sql, ['id' => $id]); 
     }
 
-    private function generate($rows, $class){
+    private function generate($rows, $class){ //Cette méthode fait le travail de transformation des résultats de la base de données (qui sont généralement des tableaux) en objets métiers (ou entités). 
         foreach($rows as $row){
             yield new $class($row);
         }
-    }
+    } 
     
     protected function getMultipleResults($rows, $class){
 
