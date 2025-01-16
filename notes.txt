@@ -22,3 +22,8 @@ Puis elle appelle des méthodes (notamment add) du TopicManager
 (Le TopicManager ne comprend pas de méthode add, mais hérite des méthodes du Manager qui la comprend).
 
 5- La méthode add() du Manager s'occupe de la logique métier = s'occupe de tout ce qui concerne la mise à jour de la BDD = elle prépare et exécute la requête SQL (via le DAO)
+
+
+
+
+CONTROLLER => SOUS-MANAGER => MANAGER  
