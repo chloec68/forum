@@ -98,7 +98,7 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
             $setQuery = implode(', ', $setStatements); /* on transforme $seStatements en une chaîne unique où les éléments sont séparés par des virgules, 
             car c'est le format SQL attendu */
 
-            $sql = "UPDATE " . $this->tableName . "SET $setQuery WHERE id_" . $this->tableName . " =? "; /* création requête SQL pour la mise à jour avec
+            $sql = "UPDATE " . $this->tableName . "SET $setQuery WHERE id_" . $this->tableName . " =:id "; /* création requête SQL pour la mise à jour avec
             détermination dynamique de la table par l'usage de $this->tableName */
 
             $setStatements[] = $id; // ajout de l'id au tableau pour le bind dans la requête SQL 
