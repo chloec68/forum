@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: all 0.8 ease-out;
 }
 
 :root{
@@ -13,6 +14,7 @@
     --light-grey:#F4F5F6;
     --bright-green:#5DE571;
     --blue:#009EF9;
+    --white:#FFF;
 }
 
 html{
@@ -23,20 +25,23 @@ html{
 body{
     min-height:100%;
     position:relative;
-    
+    height:150vh;
+    font-size: 1em;
 }
 
 h1 {
     color: rgb(0, 122, 156);
     text-align: center;
-    margin:20px;
+    margin:20px 0px 0px 20px;
 }
 
 
 /**************************************** LAYOUT *****/
 /* NAV */
 nav{
-    width:100%;
+    width:99%;
+    border-radius: 5px;
+    margin:auto;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -50,7 +55,7 @@ nav{
     
 }
 
-#nav-left{
+#nav-links{
     width:30%;
     height: fit-content;
     display:flex;
@@ -58,12 +63,18 @@ nav{
     gap:10%;  
     position:relative;
     right:0;  
-    top:15%;
+    bottom:15%;
+}
+
+#nav-links a:hover{
+    text-decoration: underline;
+    color: var(--bright-green);
 }
 
 #nav__logo{
     width:fit-content;
     display: flex;
+    margin:20px 0px 0px 20px;
 
     p{
         color:var(--green);
@@ -75,14 +86,14 @@ nav{
 }
 
 #nav-right{
-    width: fit-content;
+    width: min-content;
     height: 100%;
     display: flex;
     justify-content:flex-end;
     gap:20%; 
     padding-right:10vh;
     position:relative;
-    top:-10px;
+    bottom:40%;
 
     .sign{
         max-height:fit-content;
@@ -93,14 +104,25 @@ nav{
         min-width:fit-content;
         height: min-content;
         border-radius:4px;
-        padding:2px;
+        padding:5px;
         text-align: center;
+        font-weight:700;
+      
     }
 
     .signUp{
         background-color: var(--bright-green);
+        color: var(--black);   
+    }
+
+    .signUp:hover{
+        transform: scale(1.1);
+    }
+
+    .signIn:hover{
+        background-color: var(--bright-green);
         color: var(--black);
-        font-weight:700;
+        transform: scale(1.1);
     }
 
 }
@@ -108,7 +130,7 @@ nav{
         width: fit-content;
         display: flex;
         position: relative;
-        top:15%;
+        bottom:15%;
     }
 
     .nav__search-bar input{
@@ -125,12 +147,12 @@ nav{
     }
 
 
-/* FOOTER */
+/************* FOOTER */
 footer{
     width:100%;
     display: flex;
     justify-content: center;
-    position:absolute;
+    position:relative;
     bottom:0;
     left:0;
     right:0;
@@ -204,6 +226,7 @@ footer{
     width:fit-content;
     display: flex;
     gap:20%;
+    margin:20px;
 
     .link{
         background-color: var(--green);
@@ -213,20 +236,77 @@ footer{
 }
 
 .posts-wrapper{
-    width:30%;
-    margin:auto;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    width:50%;
+    position:relative;
+    left:40%;
+}
 
-    .posts-links{
-        display: flex;
+.posts{
+    display: flex;
+    flex-direction: column;
+    border: 4px solid var(--green);
+    position : relative; 
+    top:100px;
+    border-radius: 4px;
+    padding:20px;
+
+    p{
+        margin-top:10px;
     }
 }
 
-
-#side-bar{
-    background-color: var(--light-grey);
-    position:relative;
-   
-    left:0;
-    width:20%;
+.user{
+    display:flex;
+    width: 100%;
 }
 
+#avatar{
+    border-radius:100px;
+    width:10%;
+    margin-right:20px;
+}
+
+.post-links-and-path{
+    display: flex;
+    width: 100%;
+    gap:50%;
+}
+
+.post-path{
+    width:50%;
+}
+
+.post-links{
+    display: flex;
+    width: 50%;
+    gap:10%;
+}
+
+/* ************** SIDE BAR  */
+
+#side-bar{
+    background-color: var(--white);
+    width:30%;
+    position: absolute;
+    left: 1vw;
+    top: 15vw;
+    border-radius: 4px;
+    padding:10px;
+    gap:20px;
+}
+
+.side-bar__container-posts{
+    width:90%;
+    border-radius : 5px;
+    background-color: var(--light-grey);
+    display: flex;
+    flex-direction: row;
+
+
+    p{
+        display: block;
+    }
+}

@@ -28,9 +28,9 @@
                     <nav>
                         <div id="nav__logo">
                             <img src="public/logo/cloud-speech.svg" alt="">
-                            <p>Forum</p>
+                            <h1>Forum</h1>
                         </div>
-                        <div id="nav-left">
+                        <div id="nav-links">
                             <a href="index.php">Home page</a>
                             <a href="index.php?ctrl=forum&action=index">List of categories</a>
                             <?php
