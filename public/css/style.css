@@ -41,45 +41,50 @@ nav{
     align-items: baseline;
     justify-content: space-between;
     background-color:var(--black);
-    height:10vh;
+    height:15vh;
 
     a{
         color:var(--light-grey);
         text-decoration: none;
-        margin:2px;
     }
     
 }
 
 #nav-left{
     width:30%;
+    height: fit-content;
     display:flex;
     justify-content: flex-start;
-    gap:10%;    
-    margin:10px;
-    
+    gap:10%;  
+    position:relative;
+    right:0;  
+    top:15%;
 }
 
-#nav-logo{
-    width:20%;
+#nav__logo{
+    width:fit-content;
+    display: flex;
 
     p{
         color:var(--green);
         font-size: 1.5em;
+        height: fit-content;
+        position:relative;
+        bottom:-45px;
     }
 }
-
 
 #nav-right{
     width: fit-content;
     height: 100%;
     display: flex;
     justify-content:flex-end;
-    gap:5%; 
+    gap:20%; 
     padding-right:10vh;
-    padding-top:5vh;
+    position:relative;
+    top:-10px;
 
-    .sign,.search{
+    .sign{
         max-height:fit-content;
     }
 
@@ -98,21 +103,26 @@ nav{
         font-weight:700;
     }
 
-    .search{
-        border-radius:4px;
-        border:none;
-        font-size: 1.5em;
-        padding:2px;
-        margin-right:10px;
+}
+    .nav__search-bar{
+        width: fit-content;
+        display: flex;
+        position: relative;
+        top:15%;
     }
 
-    .fa-solid{
+    .nav__search-bar input{
+        border-radius:4px;
+        border:none;
+        padding:5px;
+    }
+
+    .nav__search-bar .fa-solid{
         color:var(--black);
         position:relative;
         left:-15%;
-        top:15%;
+        top:6px;
     }
-}
 
 
 /* FOOTER */
@@ -124,7 +134,6 @@ footer{
     bottom:0;
     left:0;
     right:0;
-    /* padding:10px; */
     background-color: var(--black);
     height:23vh;
 
@@ -133,7 +142,8 @@ footer{
         flex-direction: column;
         position:relative;
         right:25%;
-        gap:10%;
+        gap:8%;
+    
     }
 
     a{
@@ -150,23 +160,29 @@ footer{
         #small{
             position:absolute;
             bottom: 0;
+            font-size: 0.8em;
         }
     }
     #footer-middle{
         display: flex;
-        gap:10%;
+        gap:8%;
         flex-direction: column;
+
     }
 
     #footer-right{
-
+        display: flex;
+        flex-direction: column;
         position : relative;
         left:20%;
+        gap:0;
+    
         img{
             width:20px;
             height: 20px;
             display:block;
             margin-right: 10px;
+         
         }
 
         .socials{
@@ -174,13 +190,8 @@ footer{
             padding:10px;
         }
 
-        .socials {
-            display: flex;
-        }
-
         p{
             text-align: center;
-            margin-bottom: 10px;
         }
     }
 

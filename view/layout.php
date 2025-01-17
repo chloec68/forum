@@ -39,8 +39,10 @@
                         //  } 
                          ?>
                         </div>
-                        <div id="nav-right">
+                        <div class="nav__search-bar">
                             <input class="search" type="text" ><i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div id="nav-right">
                         <?php
                             // si l'utilisateur est connecté 
                             if(App\Session::getUser()){
