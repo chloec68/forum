@@ -189,6 +189,8 @@ class ForumController extends AbstractController implements ControllerInterface{
      
         if($updatedCategory){
             $categoryManager->edit( $idCategory,["categoryName"=>$updatedCategory]);
+            header("Location:index.php");
+            exit;
         }
 
         return [
@@ -220,21 +222,22 @@ class ForumController extends AbstractController implements ControllerInterface{
                             // permet de vérifier qu'une valeur a été récupérée et donc filtrée 
             $topicManager->edit($idTopic,["title"=>$updatedTopic]); /*J'appelle la méthode edit() sur l'objet $topicManager et je lui passe en paramètre
             l'identifiant du topic ($idTopic) ainsi qu'un tableau associatif contenant la clé "title" et la valeur associée à $updatedTopic. */
+
+            header("Location:index.php");
+            exit;
         }
+
+       
 
         return [
             "view" => VIEW_DIR. "forum/editTopic.php",
             "meta_description" => "New Topic",
             "data" => [
                 "updatedTopic" => $updatedTopic,
-                "topic" => $topic,
-                
+                "topic" => $topic
             ]
         ];
 
-  
-
-    
     }
 
 }
