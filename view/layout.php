@@ -24,7 +24,8 @@
                 <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
                 <header>
                     <nav>
-                        <div id="nav-logo">
+                        <div id="nav__logo">
+                            <img src="public/logo/cloud-speech.svg" alt="">
                             <p>Forum</p>
                         </div>
                         <div id="nav-left">
