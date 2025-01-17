@@ -7,7 +7,7 @@
 
 <?php
 foreach($topics as $topic ){ ?>
-    <p><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic ?></a> par <?= $topic->getUser() ?></p> 
+    <p><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic ?></a> par <?= $topic->getUser() ?><a href="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId() ?>">Update topic</a></p> 
 <?php
 }
 ?>
@@ -24,5 +24,5 @@ foreach($topics as $topic ){ ?>
     <input type="submit" name="submit" value="Submit" id="submit">
 </form>
 
-<!-- PREMIER POST DU TOPIC -->
+
 

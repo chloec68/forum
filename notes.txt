@@ -27,3 +27,49 @@ Puis elle appelle des méthodes (notamment add) du TopicManager
 
 
 CONTROLLER => SOUS-MANAGER => MANAGER  
+
+
+
+
+
+
+
+Formulaire HTML et méthode POST :
+
+Lorsqu'un utilisateur remplit un formulaire HTML et clique sur le bouton d'envoi (par exemple, un bouton "Soumettre"),
+un requête HTTP est envoyée au serveur. Cette requête peut être envoyée en utilisant différentes méthodes HTTP, dont la méthode POST.
+
+La méthode POST :
+La méthode POST est l'une des méthodes HTTP utilisées pour envoyer des données du client (navigateur de l'utilisateur) au serveur.
+Les données sont envoyées dans le corps de la requête, et non dans l'URL, ce qui les rend plus sécurisées et plus adaptées aux données volumineuses
+ou sensibles (comme des mots de passe).
+
+Sur le serveur, vous pouvez récupérer ces données envoyées via la méthode POST à l'aide de la superglobale $_POST en PHP,
+qui contient un tableau associatif avec les données envoyées.
+
+
+
+
+
+
+$row = ["id" => 1, "title" => "whatever"] ; 
+$class = 'Topic' ; 
+
+protected function getOneOrNullResult($row, $class){ 
+    if($row != null){
+        return new $class($row);
+    }
+    return false;
+} 
+
+RETOURNE : 
+
+class Topic {
+    public $id;
+    public $title;
+
+    public function __construct($data) {
+        $this->id = $data['id'];
+        $this->title = $data['title'];
+    }
+}

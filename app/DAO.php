@@ -18,10 +18,10 @@ namespace App;
 
 abstract class DAO{
 
-    private static $host   = 'mysql:host=127.0.0.1;port=3306'; //   mysql:host=127.0.0.1;port=8889
+    private static $host   = 'mysql:host=127.0.0.1;port=8889'; //   mysql:host=127.0.0.1;port=3306
     private static $dbname = 'forum_chloe';
     private static $dbuser = 'root';
-    private static $dbpass = '';
+    private static $dbpass = 'root';
 
     private static $bdd;
                         /* l'idée de base avec DAO (Data Access Object) est de séparer la logique métier (=traitement des données) de 

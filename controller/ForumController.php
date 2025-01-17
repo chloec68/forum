@@ -188,8 +188,7 @@ class ForumController extends AbstractController implements ControllerInterface{
         $updatedCategory = filter_input(INPUT_POST,"updatedCategory",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
      
         if($updatedCategory){
-            $categoryManager->edit( $idCategory,["categoryName"=>$updatedCategory,
-                                    ]);
+            $categoryManager->edit( $idCategory,["categoryName"=>$updatedCategory]);
         }
 
         return [
@@ -199,7 +198,43 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "updatedCategory" => $updatedCategory,
                 "category" => $category
             ]
-            ];
+        ];
+    }
+
+    public function editTopic($idTopic){
+        $topicManager = new TopicManager(); /* j'instancie un nouvel objet topicManager qui hérite de toutes les classes publiques et protégées
+        de la classe abstraite Manager car la classe TopicManager étend la classe Manager - les méthodes (publiques et protégées) sont disponibles pour
+        les instances de TopicManager */
+        /* la classe TopicManager hérite donc de la méthode publique findOneById($id), edit() et de la méthode protégée connect() */
+
+        $topic = $topicManager -> findOneById($idTopic); // j'appelle la méthode findOneById() sur l'objet $topicManager et je contiens le résultat dans la variable $topic
+
+        $updatedTopic = filter_input(INPUT_POST,"title",FILTER_SANITIZE_FULL_SPECIAL_CHARS); /* "Je récupère la valeur du champ 'updatedCategory' du formulaire $_POST,
+        et je la filtre pour en sécuriser les caractères spéciaux, puis je la stocke dans la variable $updatedTopic." */
+        /* filter_input() => cette fonction récupère une valeur d'entrée (ici depuis la super globale $_POST) */ 
+        /* INPUT_POST => indique que l'entrée vient de $_POST => le formulaire envoyé en méthode POST */
+        /* updatedCategory => nom du champ du formulaire (clé du tableau $_POST)
+        /* FILTER_SANITIZE_FULL_SPECIAL_CHARS => supprime ou échappe tous les caractères spéciaux */
+
+        if($updatedTopic){ //si la valeur de $updatedCategory n'est pas FALSE (NULL, empty string, nombre 0, tableau vide []) // si la valeur  est TRUE 
+                            // permet de vérifier qu'une valeur a été récupérée et donc filtrée 
+            $topicManager->edit($idTopic,["title"=>$updatedTopic]); /*J'appelle la méthode edit() sur l'objet $topicManager et je lui passe en paramètre
+            l'identifiant du topic ($idTopic) ainsi qu'un tableau associatif contenant la clé "title" et la valeur associée à $updatedTopic. */
+        }
+
+        return [
+            "view" => VIEW_DIR. "forum/editTopic.php",
+            "meta_description" => "New Topic",
+            "data" => [
+                "updatedTopic" => $updatedTopic,
+                "topic" => $topic,
+                
+            ]
+        ];
+
+  
+
+    
     }
 
 }

@@ -40,16 +40,25 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
             $this->className // les résultats bruts de la BDD pris
         );
     }
-    
-    public function findOneById($id){
 
+    /* la méthode effectue une requête SQL qui récupère les valeurs de tous les champs d'un enregistrement
+                                            dont la valeur de l'id doit être passée à la fonction
+                                        En valeur de retour, elle appelle la méthode getOneOrNullResult sur un objet */
+    
+    public function findOneById($id){ 
+        // construction de la requête
         $sql = "SELECT *
                 FROM ".$this->tableName." a
                 WHERE a.id_".$this->tableName." = :id
                 ";
-
-        return $this->getOneOrNullResult(
-            DAO::select($sql, ['id' => $id], false), 
+        // exécution de la requête et récupération du résultat
+        return $this->getOneOrNullResult( /* La méthode getOneOrNullResult prend en entrée le résultat de la méthode DAO::select() et la classe à utiliser pour créer un objet
+                                            Si la requête retourne des résultats, cette méthode crée un objet de type className = une classe représentant un enregistrement (une line)
+                                            dans une table, par exemple User
+                                            Le paramètre $row contient les données de l'enregistrement récupéré en BDD */
+            DAO::select($sql, ['id' => $id], false), /*La méthode select() est appelée sur l'objet DAO. Elle exécute la requête SQL construite précédemment. 
+                                                    Le tableau ['id' => $id] associe le paramètre :id dans la requête SQL à la valeur de $id passée à la méthode findOneById().
+                                                    l'argument false car la requête doit renvoyer un seul résultat - voir méthode select du DAO */
             $this->className
         );
     }
@@ -95,13 +104,18 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
                 $setStatements[] = "$key = :$key";
             }
 
-            $setQuery = implode(', ', $setStatements); /* on transforme $seStatements en une chaîne unique où les éléments sont séparés par des virgules, 
-            car c'est le format SQL attendu */
+            $setQuery = implode(', ', $setStatements); /* on transforme $setStatements en une chaîne unique où les éléments sont séparés par des virgules, 
+            car c'est le format SQL attendu dnas l'hypothèse où on souhaite pouvoir envoyer plusieurs valeurs:
+            UPDATE table
+            SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3'
+            WHERE condition */
 
-            $sql = "UPDATE " . $this->tableName . "SET $setQuery WHERE id_" . $this->tableName . " =:id "; /* création requête SQL pour la mise à jour avec
+            $sql = "UPDATE " . $this->tableName . " SET "." $setQuery WHERE id_" . $this->tableName . " = :id"; /* création requête SQL pour la mise à jour avec
             détermination dynamique de la table par l'usage de $this->tableName */
 
-            $setStatements[] = $id; // ajout de l'id au tableau pour le bind dans la requête SQL 
+            // $setStatements[] = $id;
+            $data['id'] = $id;
+            // ajout de l'id au tableau pour le bind dans la requête SQL 
             /* les paramètres liés, aussi appelés paramètres dynamiques ou variables liées (bind parameters) permettent de passer des données à la BDD
             => au lieu de placer directement les valeurs dans la requête SQL, on utilise un marque ? ou :nom ou :@ */
 
@@ -139,13 +153,14 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
         else return null;
     }
 
-    protected function getOneOrNullResult($row, $class){
+    protected function getOneOrNullResult($row, $class){ /* $row représente les valeurs d'un enregistrement en bdd ; $class représente une entité/un objet => donc une table
+        donc cette méthode prend en entrée le résultat de la méthode DAO::select() et la classe à utiliser pour crée un objet */
 
         if($row != null){
             return new $class($row);
         }
         return false;
-    }
+    } /* si la requête retourne des résultats, la méthode crée un objet instancié à partir de la $class spécifiée et passe un argument au constructeur */
 
     protected function getSingleScalarResult($row){
 
