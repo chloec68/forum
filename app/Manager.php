@@ -81,25 +81,33 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
 
         // *******************************************************************
         public function edit($id,$data){
+            // $data est un tableau associatif qui contient les colonnes (les champs) et leurs valeurs à mettre à jour
+            // $id est l'identifiant de l'enregistrement (la ligne) à mettre à jour 
 
             if(empty($data)){
                 return false;
             }
 
-            $setPart = [];
+            $setStatements = []; // initialisation d'un tableau vide destiné à stocker les expressions SQL de type clé=:clé
 
-            foreach($data as $column => $value){
-                $setPart[] = "$column = ?";
+            foreach($data as $key => $value){ /*pour chaque clé et valeur du tableau $data, on ajoute une chaîne de type "clé = :clé" pour préparer 
+                                                la requête parametrée */
+                $setStatements[] = "$key = :$key";
             }
 
-            $setQuery = implode(', ', $setPart);
+            $setQuery = implode(', ', $setStatements); /* on transforme $seStatements en une chaîne unique où les éléments sont séparés par des virgules, 
+            car c'est le format SQL attendu */
 
-            $sql = "UPDATE " . $this->tableName . "SET $setQuery WHERE id_" . $this->tableName . " = ?";
+            $sql = "UPDATE " . $this->tableName . "SET $setQuery WHERE id_" . $this->tableName . " =? "; /* création requête SQL pour la mise à jour avec
+            détermination dynamique de la table par l'usage de $this->tableName */
 
-            $params=array_values($data); // Récupérer les valeurs des données (en les convertissant en un tableau)
-            $params[] = $id;
+            $setStatements[] = $id; // ajout de l'id au tableau pour le bind dans la requête SQL 
+            /* les paramètres liés, aussi appelés paramètres dynamiques ou variables liées (bind parameters) permettent de passer des données à la BDD
+            => au lieu de placer directement les valeurs dans la requête SQL, on utilise un marque ? ou :nom ou :@ */
 
-            return DAO::update($sql,$data);
+            return DAO::update($sql,$data); // appel de la méthode update (DAO) qui exécute la requête préparée avec les données 
+
+            /* MANQUE LA GESTION DES ERREUR AVEC TRY CATCH : en cas d'erreur, affiche le message d'erreur et arrête l'exécution du script */
         }
         // *******************************************************************
 
@@ -113,15 +121,20 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
     }
 
     private function generate($rows, $class){ //Cette méthode fait le travail de transformation des résultats de la base de données (qui sont généralement des tableaux) en objets métiers (ou entités). 
-        foreach($rows as $row){
-            yield new $class($row);
+        foreach($rows as $row){ // la méthode parcourt chaque ligne de données $row du tableau $rows 
+            yield new $class($row); //mot-clé yield : plutôt que de retourner un tableau contenant tous les objets, yield renvoie un objet au fur et à mesure
+            // qu'il est créé => génère les objets un par un => tous les objets ne sont pas créés en une seule fois => tous les objets ne sont pas renvoyés
+            //en même temps => un nouvel objet est créé à chaque itération de la boucle
         }
-    } 
+    } // chaque ligne de la BDD est convertie en objet initié à partir de la class fournie dans le paramètre $class
     
     protected function getMultipleResults($rows, $class){
+    //$rows : ce paramète représente leS résultatS d'une requête SQL (=>un objet itérable => un tableau => les données de la BDD)
+    // $class : ce paramètre est la classe à laquelle chaque $row devra être "mappée" 
 
-        if(is_iterable($rows)){
-            return $this->generate($rows, $class);
+        if(is_iterable($rows)){ // vérifie s'il s'agit bien d'un objet itérable 
+            return $this->generate($rows, $class); // si l'objet est itérable, appelle de la méthode generate ; chaque ligne de résultat $row est 
+            // convertie en une instance de $class (si $class = Category => chaque $row devient un Objet new Category instancié à partir de la classe $Category)
         }
         else return null;
     }

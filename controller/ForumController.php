@@ -15,7 +15,7 @@ class ForumController extends AbstractController implements ControllerInterface{
         // créer une nouvelle instance de CategoryManager
         $categoryManager = new CategoryManager();
         // récupérer la liste de toutes les catégories grâce à la méthode findAll de Manager.php (triés par nom)
-        $categories = $categoryManager->findAll(["categoryName", "DESC"]);
+        $categories = $categoryManager->findAll(["categoryName", "DESC"]); 
 
         // le controller communique avec la vue "listCategories" (view) pour lui envoyer la liste des catégories (data)
         return [
@@ -179,29 +179,27 @@ class ForumController extends AbstractController implements ControllerInterface{
             ];
     }
 
-    editCategory($idCategory){
+    public function editCategory($idCategory){
         $categoryManager = new CategoryManager(); 
-        
-        $updatedCategory = filter_input(INPUT_POST,"updatedCategory",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // var_dump($updatedCategory)
-        // die; 
-
+     
         $category = $categoryManager->findOneById($idCategory);
-        //var_dump($category)
-        //die;
+        // var_dump($category);
 
+        $updatedCategory = filter_input(INPUT_POST,"updatedCategory",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+     
         if($updatedCategory){
-            $categoryManager->update(["updatedCategory"=>$updatedCategory]);
+            $categoryManager->edit( $idCategory,["categoryName"=>$updatedCategory,
+                                    ]);
         }
 
         return [
-            "view" => VIEW_DIR. "forum/listCategories.php",
+            "view" => VIEW_DIR. "forum/editCategory.php",
             "meta_description" => "New category",
             "data" => [
                 "updatedCategory" => $updatedCategory,
                 "category" => $category
             ]
-        ]
+            ];
     }
 
 }
