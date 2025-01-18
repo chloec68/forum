@@ -30,20 +30,20 @@
             <div class="categories-container">
                 <?php
                 foreach($categories as $category ){ ?>
-                    <div class="category-container">
-                        <p id="categoryName"><a href='index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>'><?= $category->getCategoryName() ?></a></p>
+                    <div class="container category-container">
+                        <p class="name categoryName"><a href='index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>'><?= $category->getCategoryName() ?></a></p>
                         <hr id="line">
-                        <p id="categoryUpdate"><a href="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>"><i class="fa-solid fa-pen"></i> Update</a></p>
+                        <p class="update categoryUpdate"><a href="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>"><i class="fa-solid fa-pen"></i> Update</a></p>
                     </div>
                 <?php
                 }
                 ?>
             </div>
-        <div class="form-wrapper">
+        <div class="form-wrapper categories__wrapper-form">
             <form action="index.php?ctrl=forum&action=createCategory" method="post">
-                <label for="newCategory">Create a category:</label>
+                <label for="new">Create a category:</label>
                 <br>
-                <input  name="categoryName" id="newCategory"> </input>
+                <input  name="categoryName" id="new"> </input>
                 <br>
                 <input type="submit" name="submit" value="Submit" id="submit">
             </form>

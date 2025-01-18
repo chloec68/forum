@@ -325,8 +325,7 @@ footer{
 
     /* CATEGORIES */
 
-    .categories-container{
-        width:20%;
+    .categories-container,.topics-container{
         display : flex; 
         flex-direction:column;
         margin:50px auto 50px auto;
@@ -334,12 +333,18 @@ footer{
         align-items:center;
     }
 
-    .category-container{
+    .categories-container{
+        width:20%;
+    }
+
+    .topics-container{
+        width:40%;
+    }
+
+    .container{
         width:50%;
-        height:80px; 
         box-shadow: 0px -2px 5px 0px rgba(159, 151, 151, 0.675);
         border-radius:4px;
-        /* background-color:var(--black); */
 
         a{
             text-decoration:none;
@@ -352,59 +357,74 @@ footer{
         }
     }
 
-    #categoryName{
+    .name{
         text-align:center;
         position:relative;
         top:15%;
         font-family: "Anton", serif;
         letter-spacing:1px;
-        
     }
 
-    #categoryName a:hover{
+    .topic-container{
+        height:180px;
+        padding:10px;
+    }
+
+    .category-container{
+        height:80px; 
+    }
+
+    .name a:hover{
         color:var(--blue);
     }
 
-    #categoryUpdate{
+    .update{
         text-align:right;
         font-size:0.8em;
         margin-top:5px;
         margin-right:5px;
     }
-    #categoryUpdate a{
+    .update a{
         color:var(---grey);
     }
 
-    #categoryUpdate a:hover{
-        /* color:var(--white); */
-        color:var(--black);
+    .update a:hover{
+        color:var(--blue);
     }
     
 
-    /* CREATE A CATEGORY FORM */
+    /* "NEW __" FORMS */
 
+    .categories__wrapper-form{
+        position:absolute;
+        left:70%;
+        bottom:70%;
+    }
+
+    .topics__wrapper-form{
+        position:absolute;
+        right:70%;
+        bottom:60%;
+        height:fit-content;
+    }
 
     .form-wrapper{
         width:20%;
         border:1px solid var(--light-purple);
-        position:absolute;
-        left:70%;
-        bottom:70%;
         border-radius:4px;
         padding:10px;
 
         form{
             text-align:center;
         
-
-            #newCategory,#submit{
+            #new, #submit{
                 outline: none;
                 background-color:var(--ultra-light-purple);
                 border: 1px solid var(--light-purple);
                 border-radius: 8px;
             }
 
-            #newCategory{
+            #new{
                 padding:3px;
                 width: 80%;
             }
