@@ -2,9 +2,15 @@
     $users = $result["data"]['users']; 
 ?>
 
-<h1>List of users</h1>
+<div class="wrapper">
+<div class="content">
+
+<h1>Users</h1>
 
 <?php
 foreach($users as $user){ ?>
-    <p><a href="#"><?= $user ?></a> 
-<?php }
+    <p><img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1"><a href="#"><?= $user ?></a> 
+<?php }?>
+
+</div>
+</div>
