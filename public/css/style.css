@@ -1,8 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    transition: all 0.8 ease-out;
+    /* transition: all 0.5 ease-out; */
 }
 
 :root{
@@ -14,9 +13,12 @@
     --light-grey:#F4F5F6;
     --bright-green:#5DE571;
     --purple:#673FD7;
-    --blue:#23a2a0;
-    --white:#FFF;
-    --bright-blue:#5de4e4;
+    --light-purple:#DADCF5;
+    --ultra-light-purple:#F8F8FF;
+    --blue:#5de4e4;
+    --white: #FFF;
+    --grey:#6c6c6c;
+    
 }
 
 html{
@@ -29,6 +31,7 @@ body{
     position:relative;
     height:fit-content;
     font-size: 1em;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -70,8 +73,7 @@ nav{
 }
 
 #nav-links a:hover{
-    text-decoration: underline;
-    color: var(--bright-blue);
+    color: var(--blue);
 }
 
 #nav__logo{
@@ -100,10 +102,7 @@ nav{
 
     .sign{
         max-height:fit-content;
-    }
-
-    .sign{
-        border: 2px solid var(--bright-green);
+        
         min-width:fit-content;
         height: min-content;
         border-radius:4px;
@@ -116,6 +115,14 @@ nav{
         transform: scale(1.1);
         background-image: linear-gradient(to right top, #5de571, #32ee9b, #00f5c1, #00fbe3, #00ffff);
         color: var(--black);
+    }
+
+    .signIn{
+        border: 2px solid var(--blue);
+    }
+
+    .signUp{
+        border: 2px solid var(--bright-green);
     }
 
 }
@@ -231,7 +238,7 @@ footer{
     margin:20px;
 
     .link{
-        background-color: #673FD7;
+        background-color: var(--purple);
         padding:5px;
         border-radius: 4px;
         touch-action: manipulation;
@@ -251,12 +258,12 @@ footer{
 .posts{
     display: flex;
     flex-direction: column;
-    border: 4px solid var(--green);
+    /* border: 4px solid var(--green); */
     position : relative; 
     top:100px;
     border-radius: 4px;
     padding:20px;
-    box-shadow: 0px -2px 10px 0px rgba(105, 99, 99, 0.675);
+    box-shadow: 0px -2px 5px 0px rgba(159, 151, 151, 0.675);
     
 
     p{
@@ -295,21 +302,118 @@ footer{
 
 #side-bar{
     background-color: var(--white);
-    width:30%;
+    border:1px solid var(--ultra-light-purple);
+    width:25%;
     position: absolute;
     left: 1vw;
     top: 15vw;
     border-radius: 4px;
     padding:10px;
-    gap:20px;
-    border: 3px solid var(--light-grey);
 }
 
 .side-bar__container-posts{
     width:90%;
     border-radius : 4px;
-    background-color: var(--green);
+    background-color: var(--ultra-light-purple);
     display: block;
     margin:15px;
   
 }
+
+
+    /**************************************** LISTS *****/
+
+    /* CATEGORIES */
+
+    .categories-container{
+        width:20%;
+        display : flex; 
+        flex-direction:column;
+        margin:50px auto 50px auto;
+        gap:20px;
+        align-items:center;
+    }
+
+    .category-container{
+        width:50%;
+        height:80px; 
+        box-shadow: 0px -2px 5px 0px rgba(159, 151, 151, 0.675);
+        border-radius:4px;
+        /* background-color:var(--black); */
+
+        a{
+            text-decoration:none;
+            color:var(--black);
+        }
+
+        #line{
+            margin-top:15%;
+            color:var(--light-grey);
+        }
+    }
+
+    #categoryName{
+        text-align:center;
+        position:relative;
+        top:15%;
+        font-family: "Anton", serif;
+        letter-spacing:1px;
+        
+    }
+
+    #categoryName a:hover{
+        color:var(--blue);
+    }
+
+    #categoryUpdate{
+        text-align:right;
+        font-size:0.8em;
+        margin-top:5px;
+        margin-right:5px;
+    }
+    #categoryUpdate a{
+        color:var(---grey);
+    }
+
+    #categoryUpdate a:hover{
+        /* color:var(--white); */
+        color:var(--black);
+    }
+    
+
+    /* CREATE A CATEGORY FORM */
+
+
+    .form-wrapper{
+        width:20%;
+        border:1px solid var(--light-purple);
+        position:absolute;
+        left:70%;
+        bottom:70%;
+        border-radius:4px;
+        padding:10px;
+
+        form{
+            text-align:center;
+        
+
+            #newCategory,#submit{
+                outline: none;
+                background-color:var(--ultra-light-purple);
+                border: 1px solid var(--light-purple);
+                border-radius: 8px;
+            }
+
+            #newCategory{
+                padding:3px;
+                width: 80%;
+            }
+
+            #submit{
+                width:20%;
+                margin:10px;
+            }
+
+        }
+
+    }

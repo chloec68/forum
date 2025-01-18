@@ -1,3 +1,7 @@
+<?php 
+    
+?>
+<h1>Welcome</h1>
 
 <div class="wrapper">
 <div class="content">
@@ -122,12 +126,12 @@
     
 
     <section id="side-bar">
-        <div class="side-bar__container-posts"><p>Introductions</p><p>Introduce yourself here</p> </div>
-        <div class="side-bar__container-posts"><p>Off-Topic</p><p>Whatever</p></div>
-        <div class="side-bar__container-posts"><p>Science & New Tech</p><p>Anything related to science or tech</p></div>
-        <div class="side-bar__container-posts"><p>Health</p><p>Anything related to health</p></div>
-        <div class="side-bar__container-posts"><p>Music</p>Music <p>Music</p></div>
-        <div class="side-bar__container-posts"><p>Cinema</p> <p>Anhting related to cinema</p></div>
+        <div class="side-bar__container-posts"><p><i class="fa-solid fa-comment-dots"></i>Introductions</p><p>Introduce yourself here</p> </div>
+        <div class="side-bar__container-posts"><p><i class="fa-solid fa-comment-dots"></i>Off-Topic</p><p>Whatever</p></div>
+        <div class="side-bar__container-posts"><p><i class="fa-solid fa-comment-dots"></i>Science & New Tech</p><p>Anything related to science or tech</p></div>
+        <div class="side-bar__container-posts"><p><i class="fa-solid fa-comment-dots"></i>Health</p><p>Anything related to health</p></div>
+        <div class="side-bar__container-posts"><p><i class="fa-solid fa-comment-dots"></i>Music</p>Music <p>Music</p></div>
+        <div class="side-bar__container-posts"><p><i class="fa-solid fa-comment-dots"></i>Cinema</p> <p>Anhting related to cinema</p></div>
         <p><a href="">View more</a></p>
     </section>
     </div>    

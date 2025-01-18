@@ -21,22 +21,32 @@
     ];
     */
 ?>
+<div class="wrapper">
+    <div class="content">
 
-<h1>Categories</h1>
 
-<?php
-foreach($categories as $category ){ ?>
-    <p><a href='index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>'><?= $category->getCategoryName() ?></a></p>
-    <p><a href="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>">Update</a></p>
-<?php
-}
-?>
+        <h1>Categories</h1>
 
-<p>Create a category:</p>
-<form action="index.php?ctrl=forum&action=createCategory" method="post">
-    <label for="categoryName">Category name:</label>
-    <br>
-    <input  name="categoryName" id="categoryName"> </input>
-    <br>
-    <input type="submit" name="submit" value="Submit" id="submit">
-</form>
+            <div class="categories-container">
+                <?php
+                foreach($categories as $category ){ ?>
+                    <div class="category-container">
+                        <p id="categoryName"><a href='index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>'><?= $category->getCategoryName() ?></a></p>
+                        <hr id="line">
+                        <p id="categoryUpdate"><a href="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>"><i class="fa-solid fa-pen"></i> Update</a></p>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+        <div class="form-wrapper">
+            <form action="index.php?ctrl=forum&action=createCategory" method="post">
+                <label for="newCategory">Create a category:</label>
+                <br>
+                <input  name="categoryName" id="newCategory"> </input>
+                <br>
+                <input type="submit" name="submit" value="Submit" id="submit">
+            </form>
+        </div>
+    </div>
+</div>

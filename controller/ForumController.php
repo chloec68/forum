@@ -227,8 +227,6 @@ class ForumController extends AbstractController implements ControllerInterface{
             exit;
         }
 
-       
-
         return [
             "view" => VIEW_DIR. "forum/editTopic.php",
             "meta_description" => "New Topic",
