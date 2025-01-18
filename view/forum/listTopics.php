@@ -4,8 +4,8 @@
 ?>
 
 <div class="wrapper">
-    <div class="content">
-        <h1>Topics</h1>
+    <h1>Topics</h1>
+    <div class="content topics__content">
         <div class="topics-container">
             <?php
             foreach($topics as $topic ){ ?>
@@ -26,9 +26,9 @@
             <br>
             <input type="text" name="title" id="new"> </input>
             <br>
-            <label for="">Premier post du topic:</label>
+            <label for="">First post (mandatory):</label>
             <br>
-            <textarea name="firstPost" id="new" rows="10" cols="50"></textarea>
+            <textarea name="firstPost" id="new" rows="10" cols="80"></textarea>
             <input type="submit" name="submit" value="Submit" id="submit">
         </form>
     </div>

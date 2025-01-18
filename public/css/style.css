@@ -323,26 +323,31 @@ footer{
 
     /**************************************** LISTS *****/
 
-    /* CATEGORIES */
-
+    /* CATEGORIES & TOPICS*/
+  .topics__content{
+    display: flex;
+    padding:30px;
+  }
     .categories-container,.topics-container{
         display : flex; 
-        flex-direction:column;
         margin:50px auto 50px auto;
         gap:20px;
         align-items:center;
+        justify-content: center;
     }
 
     .categories-container{
         width:20%;
+        flex-direction:column;
     }
 
     .topics-container{
-        width:40%;
+        width:60%;
+        flex-wrap:wrap;
+        flex-direction:row;
     }
 
     .container{
-        width:50%;
         box-shadow: 0px -2px 5px 0px rgba(159, 151, 151, 0.675);
         border-radius:4px;
 
@@ -368,10 +373,12 @@ footer{
     .topic-container{
         height:180px;
         padding:10px;
+        width:30%;
     }
 
     .category-container{
         height:80px; 
+        width:50%;
     }
 
     .name a:hover{
@@ -402,21 +409,18 @@ footer{
     }
 
     .topics__wrapper-form{
-        position:absolute;
-        right:70%;
-        bottom:60%;
         height:fit-content;
     }
 
     .form-wrapper{
-        width:20%;
-        border:1px solid var(--light-purple);
-        border-radius:4px;
-        padding:10px;
+        width:fit-content;
 
         form{
             text-align:center;
-        
+            display: flex;
+            flex-direction:column;
+            align-items: center;
+
             #new, #submit{
                 outline: none;
                 background-color:var(--ultra-light-purple);
@@ -430,8 +434,9 @@ footer{
             }
 
             #submit{
-                width:20%;
+                width:fit-content;
                 margin:10px;
+                padding:5px;
             }
 
         }
