@@ -5,16 +5,16 @@
 
 <div class="wrapper">
     <h1>Topics</h1>
-    <div class="content topics__content">
+    <div class="content">
         <div class="topics-container">
             <?php
             foreach($topics as $topic ){ ?>
             <div class="container topic-container">
                 <p class="name topicName"><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic ?></a></p> 
                 <br>
-                <p><a href="PROFIL USER"><img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">by <?= $topic->getUser() ?></p>
-                <hr id="line">
-                <p class="update topicUpdate"><a href="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId()?>"><i class="fa-solid fa-pen"></i> Update topic</a></p>
+                    <p><a href="PROFIL USER"><img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">by <?= $topic->getUser() ?></p>
+                    <hr id="line">
+                    <p class="update topicUpdate"><a href="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId()?>"><i class="fa-solid fa-pen"></i> Update topic</a></p>
             </div>
             <?php
             }

@@ -105,7 +105,6 @@ class ForumController extends AbstractController implements ControllerInterface{
         // je crée une nouvelle instance de topic manger. La couche modèle s'occupe de la logique métier ( la couche qui d'occupe ds données et de l'accès à la bdd)
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
-
         $postManager = new PostManager();
 
         // le form d'ajout est dans ma vue détail catégorie, je vérifie que la mathod du form est bien en post et que la methode s'appelle bien create topic
@@ -114,7 +113,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         $firstPost = filter_input(INPUT_POST,"firstPost",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         // Je teste si le filtre est bien appliqué à ma variable ; 
-        // var dump($newTopic);
+        // var_dump($newTopic);
+        // var_dump($firstPost);
         // die;
 
         // j'ai filtré mes données venant du form pour me protéger de la faille XSS
@@ -128,9 +128,13 @@ class ForumController extends AbstractController implements ControllerInterface{
             // grâce au principe d'héritage, une classe fille (topic manager) peut hériter des classes de sa classe mère (manager)
             $topicManager->add(['title' => $newTopic,
                                 'user_id'=>"1",
-                                'category_id'=>$idCategory]);
+                                'category_id'=>$idCategory,
+                                'closed'=>0]);
             // j'appelle le post manager pour pouvoir hériter du add
-            $postManager->add(['content'=>$firstPost]);
+            // $postManager->add(['content'=>$firstPost]);
+
+            header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$idCategory");
+            exit;
         }else{
             echo "You must write a first post if you wish to create a topic";
             die;
@@ -142,7 +146,7 @@ class ForumController extends AbstractController implements ControllerInterface{
             "meta_description" => "New topic",
             "data" => [
                 "topics" => $topics,
-                "category"=>$category
+                "category"=>$category,
             ]
         ];
     }
@@ -192,7 +196,7 @@ class ForumController extends AbstractController implements ControllerInterface{
      
         if($updatedCategory){
             $categoryManager->edit( $idCategory,["categoryName"=>$updatedCategory]);
-            header("Location:index.php");
+            header("Location:index.php?ctrl=forum&action=index");
             exit;
         }
 
@@ -243,12 +247,14 @@ class ForumController extends AbstractController implements ControllerInterface{
 
     public function deleteCategory($id){
         $categoryManager = new CategoryManager(); // création d'une nouvelle instance de la classe CategoryManager qui va me permettre de gérer la logique métier liée aux catégories (suppression ici)
-
+        $categories = $categoryManager->findAll(["categoryName", "ASC"]); //
         $category = $categoryManager->findOneById($id); // récupération d'une catégorie en fonction de son id
+
+        
 
         if($category){
             $categoryManager->delete($id);// je passe l'id à la méthode delete() du CategoryManager // ou $categoryManager->delete($category['id]);
-            $message = "Category " . $category['name'] . " has been sucessfully deleted";
+            $message = "Category " . $category->getCategoryName() . " has been sucessfully deleted";
         }else{
             $message = "Category not found";
         }
@@ -258,8 +264,9 @@ class ForumController extends AbstractController implements ControllerInterface{
             "view" => VIEW_DIR. "forum/listCategories.php",
             "meta_description" => "", 
             "data" => [
-                "message" => $message // passage du message à la vue ; inutile de passes les informations de la cat supprimée qui ne seront plus dispo en BDD;
-                // "category" => $category
+                "message" => $message,// passage du message à la vue ; inutile de passes les informations de la cat supprimée qui ne seront plus dispo en BDD;
+                "categories" => $categories // obligée de passer toutes les catégories car la vue contenait déjà $categories en raison de la méthode index() qui renvoie à la même vue
+               
             ]
         ];
     }

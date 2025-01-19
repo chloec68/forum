@@ -324,42 +324,70 @@ footer{
     /**************************************** LISTS *****/
 
     /* CATEGORIES & TOPICS*/
-  .topics__content{
+  .content{
     display: flex;
     padding:30px;
   }
     .categories-container,.topics-container{
         display : flex; 
-        margin:50px auto 50px auto;
         gap:20px;
         align-items:center;
         justify-content: center;
-    } */
-
-     .categories-container{
-        width:50%;
-        flex-direction:column;
-    }
-
-    .topics-container{
-        width:60%;
+        width:100%;
         flex-wrap:wrap;
         flex-direction:row;
-    }
+    } 
 
     .container{
         box-shadow: 0px -2px 5px 0px rgba(159, 151, 151, 0.675);
         border-radius:4px;
-
+      
         a{
             text-decoration:none;
             color:var(--black);
         }
 
         #line{
-            margin-top:15%;
+            /* margin-top:5%; */
             color:var(--light-grey);
         }
+    }
+
+    .topic-container{
+        height:180px;
+        padding:10px;
+        width:20%;
+    }
+
+    .category-container{
+        height:80px; 
+        width:40%;
+        display: flex;
+        flex-direction: column;
+        gap:20%;
+        padding: 5px;
+    }
+
+
+    .options{
+        display: flex;
+        flex-direction: row;
+        align-self: flex-end;
+        width: 100%;
+        justify-content: space-between;
+
+        .update,.delete{
+            font-size:0.8em;
+        }
+
+        .update a, .delete a{
+            color:var(---grey);
+        }
+    
+        .update a:hover, .delete a:hover{
+            color:var(--blue);
+        }
+
     }
 
     .name{
@@ -370,38 +398,13 @@ footer{
         letter-spacing:1px;
     }
 
-    .topic-container{
-        height:180px;
-        padding:10px;
-        width:30%;
-    }
-
-    .category-container{
-        height:80px; 
-        width:50%;
-    }
-
     .name a:hover{
         color:var(--blue);
     }
-    .update{
-        text-align:right;
-    }
-    .delete{
-        text-align: left;
-    }
-    .update,.delete{
-        font-size:0.8em;
-        margin-top:5px;
-        margin-right:5px;
-    }
-    .update a, .delete a{
-        color:var(---grey);
-    }
 
-    .update a:hover, .delete a:hover{
-        color:var(--blue);
-    }
+
+
+ 
     
 
     /* "NEW __" FORMS */

@@ -22,19 +22,18 @@
     */
 ?>
 <div class="wrapper">
+<h1>Categories</h1>
     <div class="content">
-
-
-        <h1>Categories</h1>
-
             <div class="categories-container">
                 <?php
                 foreach($categories as $category ){ ?>
                     <div class="container category-container">
                         <p class="name categoryName"><a href='index.php?ctrl=forum&action=listTopicsByCategory&id=<?= $category->getId() ?>'><?= $category->getCategoryName() ?></a></p>
                         <hr id="line">
-                        <p class="update categoryUpdate"><a href="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>"><i class="fa-solid fa-pen"></i> Update</a></p>
-                        <p class="delete categoryDelete"><a href="index.php?ctrl=forum&action=deleteCategory=id= <?= $category->getId()?>"><i class="fa-solid fa-delete-left"></i>Delete</a></p>
+                        <div class="options">
+                            <p class="update categoryUpdate"><a href="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>"><i class="fa-solid fa-pen"></i> Update</a></p>
+                            <p class="delete categoryDelete"><a href="index.php?ctrl=forum&action=deleteCategory&id= <?= $category->getId()?>"><i class="fa-solid fa-delete-left"></i>Delete</a></p>
+                        </div>
                     </div>
                 <?php
                 }
