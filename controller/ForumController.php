@@ -7,6 +7,9 @@ use App\ControllerInterface;
 use Model\Managers\CategoryManager;
 use Model\Managers\TopicManager;
 use Model\Managers\PostManager;
+/* La déclaration use App\Session, etc permet de pouvoir étendre les classes sans avoir à spécifier leur chemin complet (namespace \ classname) car le chemin complet est déjà
+spécifié ici ; 
+Sinon on devrait écrire : class ForumController extends App\AbstractController implements App\ControllerInterface {} */
 
 class ForumController extends AbstractController implements ControllerInterface{
 
@@ -236,6 +239,28 @@ class ForumController extends AbstractController implements ControllerInterface{
             ]
         ];
 
+    }
+
+    public function deleteCategory($id){
+        $categoryManager = new CategoryManager(); // création d'une nouvelle instance de la classe CategoryManager qui va me permettre de gérer la logique métier liée aux catégories (suppression ici)
+
+        $category = $categoryManager->findOneById($id); // récupération d'une catégorie en fonction de son id
+
+        if($category){
+            $categoryManager->delete($id);// je passe l'id à la méthode delete() du CategoryManager // ou $categoryManager->delete($category['id]);
+            $message = "Category " . $category['name'] . " has been sucessfully deleted";
+        }else{
+            $message = "Category not found";
+        }
+
+      
+        return [
+            "view" => VIEW_DIR. "forum/listCategories.php",
+            "meta_description" => "", 
+            "data" => [
+                "message" => $message // passage du message à la vue ; inutile de passes les informations de la cat supprimée qui ne seront plus dispo en BDD;
+            ]
+        ];
     }
 
 }

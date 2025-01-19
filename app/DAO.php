@@ -17,7 +17,9 @@ namespace App;
 
 
 abstract class DAO{
-
+    /* attribut privé et statique $host auquel la valeur assignée est l'adresse du serveur MySql
+    static => attribut partagé par toutes les instances de la classe DAO 
+    => on veut une seule connexion à la BDD partagée dans toute l'application */
     private static $host   = 'mysql:host=127.0.0.1;port=8889'; //   mysql:host=127.0.0.1;port=3306
     private static $dbname = 'forum_chloe';
     private static $dbuser = 'root';
@@ -33,7 +35,7 @@ abstract class DAO{
     public static function connect(){
         
         self::$bdd = new \PDO(
-            self::$host.';dbname='.self::$dbname,
+            self::$host.';dbname='.self::$dbname, // ::self fait référence à la classe ; $this-> fait référence à l'instance d'une classe 
             self::$dbuser,
             self::$dbpass,
             array(
@@ -46,7 +48,9 @@ abstract class DAO{
 
     public static function insert($sql){
         try{
-            $stmt = self::$bdd->prepare($sql);
+            // self::$bdd fait référence à l'instance de PDO stockée dans l'attribut statique $bdd de la classe DAO 
+            $stmt = self::$bdd->prepare($sql); //$stmt est une variable locale et temporaire de la méthode insert() => contrairement aux attributs de la classe, elle ne perdure pas
+            // dans toute la classe = > la variable ne peut pas être utilisée dans une autre méthode si elle n'y est pas définie 
             $stmt->execute();
             /*on renvoie l'id de l'enregistrement qui vient d'être ajouté en base, 
             pour s'en servir aussitôt dans le controleur*/
