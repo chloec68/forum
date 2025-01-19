@@ -334,10 +334,10 @@ footer{
         gap:20px;
         align-items:center;
         justify-content: center;
-    }
+    } */
 
-    .categories-container{
-        width:20%;
+    /* .categories-container{
+        width:50%;
         flex-direction:column;
     }
 
@@ -384,18 +384,22 @@ footer{
     .name a:hover{
         color:var(--blue);
     }
-
     .update{
         text-align:right;
+    }
+    .delete{
+        text-align: left;
+    }
+    .update,.delete{
         font-size:0.8em;
         margin-top:5px;
         margin-right:5px;
     }
-    .update a{
+    .update a, .delete a{
         color:var(---grey);
     }
 
-    .update a:hover{
+    .update a:hover, .delete a:hover{
         color:var(--blue);
     }
     

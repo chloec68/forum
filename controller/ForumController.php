@@ -259,6 +259,7 @@ class ForumController extends AbstractController implements ControllerInterface{
             "meta_description" => "", 
             "data" => [
                 "message" => $message // passage du message à la vue ; inutile de passes les informations de la cat supprimée qui ne seront plus dispo en BDD;
+                // "category" => $category
             ]
         ];
     }
