@@ -1,5 +1,5 @@
 <?php
-    $categories = $result["data"]['categories']; // renvoie un tableau de résultats assigné à la variable $categories
+    $categories = $result["data"]['categories']; 
     $message = $result['data']['message'];
 
     /*
@@ -22,9 +22,14 @@
     ];
     */
 ?>
+<?= $message ."<br>"?>
+<div class="createCategory__container">
+    <div class="createCategory-border">
+        <a class="createCategory-link" href="index.php?ctrl=forum&action=createCategory">Create a category <i class="fa-solid fa-plus"></i></a>
+    </div>
+</div>
 <div class="wrapper">
-<h1>Categories</h1>
-    <p><?= $message ?></p>
+    <h1>Categories</h1>
     <div class="content">
             <div class="categories-container">
                 <?php
@@ -34,21 +39,33 @@
                         <hr id="line">
                         <div class="options">
                             <p class="update categoryUpdate"><a href="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>"><i class="fa-solid fa-pen"></i> Update</a></p>
-                            <p class="delete categoryDelete"><a href="index.php?ctrl=forum&action=deleteCategory&id= <?= $category->getId()?>"><i class="fa-solid fa-delete-left"></i>Delete</a></p>
+                            <p class="delete categoryDelete"><a href="index.php?ctrl=forum&action=deleteCategory&id= <?= $category->getId()?>"><i class="fa-solid fa-delete-left"></i> Delete</a></p>
                         </div>
                     </div>
                 <?php
                 }
                 ?>
             </div>
-        <div class="form-wrapper categories__wrapper-form">
-            <form action="index.php?ctrl=forum&action=createCategory" method="post">
-                <label for="new">Create a category:</label>
-                <br>
-                <input  name="categoryName" id="new"> </input>
-                <br>
-                <input type="submit" name="submit" value="Submit" id="submit">
-            </form>
-        </div>
     </div>
 </div>
+
+
+<style>
+    .createCategory-link{
+        text-decoration:none;
+        color:var(--white);
+    }
+
+    .createCategory__container{
+        display:flex;
+       justify-content:flex-end;
+       margin:20px;
+    }
+
+    .createCategory-border{
+        border:2px solid var(--purple);
+        background-color:var(--purple);
+        border-radius:4px;
+        padding:2px;
+    }
+</style>

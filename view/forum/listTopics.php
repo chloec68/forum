@@ -4,7 +4,7 @@
 ?>
 
 <div class="wrapper">
-    <h1>Topics</h1>
+    <h1><?=$category->getCategoryName()?>/Topics</h1>
     <div class="content">
         <div class="topics-container">
             <?php
@@ -15,7 +15,7 @@
                     <p><a href="PROFIL USER"><img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">by <?= $topic->getUser() ?></p>
                     <hr id="line">
                     <p class="update topicUpdate"><a href="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId()?>"><i class="fa-solid fa-pen"></i> Update topic</a></p>
-                    <p class="delete topicDelete"><a href="index.php?ctrl=forum&action=deleteTopicAndRelatedPosts&id= <?= $topic->getId() ?>"><i class="fa-solid fa-delete-left"></i>Delete</a></p>
+                    <p class="delete topicDelete"><a href="index.php?ctrl=forum&action=deleteTopicAndRelatedPosts&id= <?= $topic->getId() ?>"><i class="fa-solid fa-delete-left"></i> Delete</a></p>
             </div>
             <?php
             }

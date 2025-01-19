@@ -23,14 +23,16 @@ class ForumController extends AbstractController implements ControllerInterface{
         $message = "";
 
         // le controller communique avec la vue "listCategories" (view) pour lui envoyer la liste des catégories (data)
-        return [
+        $result = [
             "view" => VIEW_DIR."forum/listCategories.php",
-            "meta_description" => "Liste des catégories du forum",
+            "meta_description" => "categories",
             "data" => [
                 "categories" => $categories,
                 "message" =>$message
             ]
         ];
+
+        return $result;
     }
 
     public function listTopicsByCategory($id) {
@@ -41,19 +43,25 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topics = $topicManager->findTopicsByCategory($id);
 
         if(empty($topics)){
-            echo "no post yet";
-            //ajouter lien "en créer un" ?
-            exit;
-        };
+            $message = "No topic yet";
+            return [
+                "view" => VIEW_DIR."forum/createTopic.php",
+                "meta_description" => "create Topic",
+                "data" => ["category"=>$category,
+                "message"=>$message]
+            ];
+           
+        }else{
 
-        return [
-            "view" => VIEW_DIR."forum/listTopics.php",
-            "meta_description" => "Liste des topics par catégorie : ".$category,
-            "data" => [
-                "category" => $category,
-                "topics" => $topics
-            ]
-        ];
+            return [
+                "view" => VIEW_DIR."forum/listTopics.php",
+                "meta_description" => "Topics by category : ".$category,
+                "data" => [
+                    "category" => $category,
+                    "topics" => $topics
+                ]
+            ];
+        }
     }
 
     public function listPostsByTopic($id){
@@ -81,30 +89,36 @@ class ForumController extends AbstractController implements ControllerInterface{
     function createCategory(){
         $categoryManager = new CategoryManager();
 
-        $categoryName = filter_input(INPUT_POST,"categoryName",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // var_dump($newCategoryName);
-        // die;
+        $categoryName ="";
+        $message=null;
 
-        if($categoryName){
-            $categoryManager->add(["categoryName" => $categoryName]);
-            $message = "Category successfully created";
-        }else{
-            $message = "Error : couldn't create category";
+        if(isset($_POST['submit'])){
+            
+            $categoryName = filter_input(INPUT_POST,"categoryName",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if($categoryName){
+                $categoryManager->add(["categoryName" => $categoryName]);
+                $message = "Category successfully created";
+            }else{
+                $message = "Error : couldn't create category";
+            }
         }
 
         $categories = $categoryManager->findall(["categoryName","ASC"]);
 
-        return [
-            "view" => VIEW_DIR. "forum/listCategories.php",
-            "meta_description" => "New Category",
+        $result = [
+            "view" => VIEW_DIR. "forum/createCategory.php",
+            "meta_description" => "create a category",
             "data" => [
                 "categories" =>$categories,
                 "categoryName"=>$categoryName,
                 "message"=>$message
             ]
         ];
-    }
 
+        return $result;
+        
+    }
     // creation de fonction qui permet d'ajouter un topic à une catégorie
     // je mets en paramètres l'id de la catégorie afin de la récupérer dans l'url
     public function createTopic($idCategory){

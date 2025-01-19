@@ -258,12 +258,12 @@ footer{
 .posts{
     display: flex;
     flex-direction: column;
-    /* border: 4px solid var(--green); */
     position : relative; 
     top:100px;
     border-radius: 4px;
     padding:20px;
     box-shadow: 0px -2px 5px 0px rgba(159, 151, 151, 0.675);
+    width:100%;
     
 
     p{
@@ -357,6 +357,9 @@ footer{
         height:180px;
         padding:10px;
         width:20%;
+        display: flex;
+        flex-direction: column;
+        gap:10px;
     }
 
     .category-container{
@@ -393,7 +396,6 @@ footer{
     .name{
         text-align:center;
         position:relative;
-        top:15%;
         font-family: "Anton", serif;
         letter-spacing:1px;
     }
@@ -410,9 +412,10 @@ footer{
     /* "NEW __" FORMS */
 
     .categories__wrapper-form{
-        position:absolute;
-        left:70%;
-        bottom:70%;
+        
+      display:flex;
+      flex-direction:column;
+      align-self: center;
     }
 
     .topics__wrapper-form{
@@ -432,7 +435,7 @@ footer{
                 outline: none;
                 background-color:var(--ultra-light-purple);
                 border: 1px solid var(--light-purple);
-                border-radius: 8px;
+                border-radius: 4px;
             }
 
             #new{
