@@ -20,12 +20,15 @@ class ForumController extends AbstractController implements ControllerInterface{
         // récupérer la liste de toutes les catégories grâce à la méthode findAll de Manager.php (triés par nom)
         $categories = $categoryManager->findAll(["categoryName", "DESC"]); 
 
+        $message = "";
+
         // le controller communique avec la vue "listCategories" (view) pour lui envoyer la liste des catégories (data)
         return [
             "view" => VIEW_DIR."forum/listCategories.php",
             "meta_description" => "Liste des catégories du forum",
             "data" => [
-                "categories" => $categories
+                "categories" => $categories,
+                "message" =>$message
             ]
         ];
     }
@@ -84,6 +87,9 @@ class ForumController extends AbstractController implements ControllerInterface{
 
         if($categoryName){
             $categoryManager->add(["categoryName" => $categoryName]);
+            $message = "Category successfully created";
+        }else{
+            $message = "Error : couldn't create category";
         }
 
         $categories = $categoryManager->findall(["categoryName","ASC"]);
@@ -93,7 +99,8 @@ class ForumController extends AbstractController implements ControllerInterface{
             "meta_description" => "New Category",
             "data" => [
                 "categories" =>$categories,
-                "categoryName"=>$categoryName
+                "categoryName"=>$categoryName,
+                "message"=>$message
             ]
         ];
     }
@@ -139,7 +146,7 @@ class ForumController extends AbstractController implements ControllerInterface{
             echo "You must write a first post if you wish to create a topic";
             die;
         }
-        $topics = $topicManager->findAll(["title","DESC"]);
+        $topics = $topicManager->findAll(["title","ASC"]);
 
         return [
             "view" => VIEW_DIR. "forum/listTopics.php",
@@ -250,13 +257,11 @@ class ForumController extends AbstractController implements ControllerInterface{
         $categories = $categoryManager->findAll(["categoryName", "ASC"]); //
         $category = $categoryManager->findOneById($id); // récupération d'une catégorie en fonction de son id
 
-        
-
         if($category){
             $categoryManager->delete($id);// je passe l'id à la méthode delete() du CategoryManager // ou $categoryManager->delete($category['id]);
             $message = "Category " . $category->getCategoryName() . " has been sucessfully deleted";
         }else{
-            $message = "Category not found";
+            $message = "Category not found or already deleted";
         }
 
       
@@ -267,6 +272,33 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "message" => $message,// passage du message à la vue ; inutile de passes les informations de la cat supprimée qui ne seront plus dispo en BDD;
                 "categories" => $categories // obligée de passer toutes les catégories car la vue contenait déjà $categories en raison de la méthode index() qui renvoie à la même vue
                
+            ]
+        ];
+    }
+
+    public function deleteTopicAndRelatedPosts($id){
+        $topicManager = new TopicManager(); 
+        $postManager = new PostManager();
+
+        $topic = $topicManager -> findOneById($id); 
+        $relatedPosts = $postManager -> findPostsByTopic($id);    
+
+
+        if($topic){
+            $topicManager->delete($id);
+            $postManager->delete($id);
+            $message = "Topic and all related posts sucessfully deleted";
+            header('Location : index.php');
+        }else{
+            $message = "Error - couldn't delete topic and related posts";
+        }
+
+        return [
+            "view" => VIEW_DIR. "forum/deleteTopic.php",
+            "meta_description" => "", 
+            "data" => [
+                "message" => $message,
+                "topic" => $topic,
             ]
         ];
     }

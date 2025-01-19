@@ -88,42 +88,42 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
         }
     }
 
-        // *******************************************************************
-        public function edit($id,$data){
-            // $data est un tableau associatif qui contient les colonnes (les champs) et leurs valeurs à mettre à jour
-            // $id est l'identifiant de l'enregistrement (la ligne) à mettre à jour 
+   
+    public function edit($id,$data){
+        // $data est un tableau associatif qui contient les colonnes (les champs) et leurs valeurs à mettre à jour
+        // $id est l'identifiant de l'enregistrement (la ligne) à mettre à jour 
 
-            if(empty($data)){
-                return false;
-            }
-
-            $setStatements = []; // initialisation d'un tableau vide destiné à stocker les expressions SQL de type clé=:clé
-
-            foreach($data as $key => $value){ /*pour chaque clé et valeur du tableau $data, on ajoute une chaîne de type "clé = :clé" pour préparer 
-                                                la requête parametrée */
-                $setStatements[] = "$key = :$key";
-            }
-
-            $setQuery = implode(', ', $setStatements); /* on transforme $setStatements en une chaîne unique où les éléments sont séparés par des virgules, 
-            car c'est le format SQL attendu dnas l'hypothèse où on souhaite pouvoir envoyer plusieurs valeurs:
-            UPDATE table
-            SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3'
-            WHERE condition */
-
-            $sql = "UPDATE " . $this->tableName . " SET "." $setQuery WHERE id_" . $this->tableName . " = :id"; /* création requête SQL pour la mise à jour avec
-            détermination dynamique de la table par l'usage de $this->tableName */
-
-            // $setStatements[] = $id;
-            $data['id'] = $id;
-            // ajout de l'id au tableau pour le bind dans la requête SQL 
-            /* les paramètres liés, aussi appelés paramètres dynamiques ou variables liées (bind parameters) permettent de passer des données à la BDD
-            => au lieu de placer directement les valeurs dans la requête SQL, on utilise un marque ? ou :nom ou :@ */
-
-            return DAO::update($sql,$data); // appel de la méthode update (DAO) qui exécute la requête préparée avec les données 
-
-            /* MANQUE LA GESTION DES ERREUR AVEC TRY CATCH : en cas d'erreur, affiche le message d'erreur et arrête l'exécution du script */
+        if(empty($data)){
+            return false;
         }
-        // *******************************************************************
+
+        $setStatements = []; // initialisation d'un tableau vide destiné à stocker les expressions SQL de type clé=:clé
+
+        foreach($data as $key => $value){ /*pour chaque clé et valeur du tableau $data, on ajoute une chaîne de type "clé = :clé" pour préparer 
+                                            la requête parametrée */
+            $setStatements[] = "$key = :$key";
+        }
+
+        $setQuery = implode(', ', $setStatements); /* on transforme $setStatements en une chaîne unique où les éléments sont séparés par des virgules, 
+        car c'est le format SQL attendu dnas l'hypothèse où on souhaite pouvoir envoyer plusieurs valeurs:
+        UPDATE table
+        SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3'
+        WHERE condition */
+
+        $sql = "UPDATE " . $this->tableName . " SET "." $setQuery WHERE id_" . $this->tableName . " = :id"; /* création requête SQL pour la mise à jour avec
+        détermination dynamique de la table par l'usage de $this->tableName */
+
+        // $setStatements[] = $id;
+        $data['id'] = $id;
+        // ajout de l'id au tableau pour le bind dans la requête SQL 
+        /* les paramètres liés, aussi appelés paramètres dynamiques ou variables liées (bind parameters) permettent de passer des données à la BDD
+        => au lieu de placer directement les valeurs dans la requête SQL, on utilise un marque ? ou :nom ou :@ */
+
+        return DAO::update($sql,$data); // appel de la méthode update (DAO) qui exécute la requête préparée avec les données 
+
+        /* MANQUE LA GESTION DES ERREUR AVEC TRY CATCH : en cas d'erreur, affiche le message d'erreur et arrête l'exécution du script */
+    }
+ 
 
 
     public function delete($id){

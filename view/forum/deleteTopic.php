@@ -1,14 +1,13 @@
 <?php
-    $category = $result["data"]['category']; 
-    $topics = $result["data"]['topics']; 
+  $message = $result['data']['message'];
+  $topic = $result['data']['topic'];
 ?>
 
 <div class="wrapper">
-    <h1>Topics</h1>
+    <h1>Delete this topic</h1>
     <div class="content">
         <div class="topics-container">
-            <?php
-            foreach($topics as $topic ){ ?>
+    
             <div class="container topic-container">
                 <p class="name topicName"><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?= $topic->getId() ?>"><?= $topic ?></a></p> 
                 <br>
@@ -17,19 +16,4 @@
                     <p class="update topicUpdate"><a href="index.php?ctrl=forum&action=editTopic&id=<?= $topic->getId()?>"><i class="fa-solid fa-pen"></i> Update topic</a></p>
                     <p class="delete topicDelete"><a href="index.php?ctrl=forum&action=deleteTopicAndRelatedPosts&id= <?= $topic->getId() ?>"><i class="fa-solid fa-delete-left"></i>Delete</a></p>
             </div>
-            <?php
-            }
-            ?>
         </div>
-    <div class="form-wrapper topics__wrapper-form">
-        <form action="index.php?ctrl=forum&action=createTopic&id=<?= $category->getId()?>" method="post">
-            <label for="new">New topic:</label>
-            <br>
-            <input type="text" name="title" id="new"> </input>
-            <br>
-            <label for="">First post (mandatory):</label>
-            <br>
-            <textarea name="firstPost" id="new" rows="10" cols="80"></textarea>
-            <input type="submit" name="submit" value="Submit" id="submit">
-        </form>
-    </div>

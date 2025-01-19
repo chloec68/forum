@@ -1,5 +1,6 @@
 <?php
     $categories = $result["data"]['categories']; // renvoie un tableau de résultats assigné à la variable $categories
+    $message = $result['data']['message'];
 
     /*
     $result = [
@@ -23,6 +24,7 @@
 ?>
 <div class="wrapper">
 <h1>Categories</h1>
+    <p><?= $message ?></p>
     <div class="content">
             <div class="categories-container">
                 <?php
