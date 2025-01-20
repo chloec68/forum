@@ -87,7 +87,7 @@ class Topic {
 
 
 
-Hash_v1.1
+***************************************************************Hash_v1.1
 
 mot de passe haché : c'est crypté/encodé grâce à une chaîne de caractère ; le but est que le mdp ne soit pas stocké en clair, tel qu'on l'a saisi, dans la
 base de données ; 
@@ -179,5 +179,33 @@ Pour le logout => unset($_SESSION['user]);
 2. Hacher le mdp (hachage fort) et l'envoyer haché en BDD; password_hash()
 3. Mise en place d'un système de correspondance hachage/mdp en clair renseigné par l'user à la connexion ; password_verify()
 
+Dans SecurityController.php : 
+Pour le register : 
+- on filtre les champs du formulaire : filter_input pour lutter contre la faille XSS 
+- si les filtres sont valides (if), on vérifie que le mail n'existe pas déjà (sinon message d'erreur) : en BDD on pourrait rendre le champ email du user "unique" par exemple => index de clé unique (rouge) 
+- on vérifie que le pseudo n'existe pas non plus (sinon message d'erreur) : idem;
+- on vérifié que les deux mots de passes du formulaire soient identiques : simple comparaison de chaînes de caractères en clair (if $password1 = $password2)
+- si c'est le cas, on hash le mdp (password_hash())
+-on ajoute l'utilisateur en BDD 
+
+Pour le login : 
+- on filtre les champs du formulaire (email + mdp): filter_input pour se prémunir de la faille XSS + adapter les input et les filter input 
+- si les filtres passent, on retrouve le password correspondant au mail entré dans le formulaire 
+- si on le trouve, on récuère le hash de la BDD 
+- on retrouve l'utilisateur correspondant 
+- on vérifie le mdp (password_verify())
+- si on arrive à se connecter, on fait passer le user en session 
+- si aucune des conditions ne passent (mauvais mot de passe, utilisateur inexistant, etc) -> message d'erreur 
 
 
+
+$message = "mot de passe ou nom utilisateur inccorrect " => ne pas être trop précis par mesure de sécurité ; 
+
+
+
+***************************************************************Register_v1_1
+
+register.php 
+
+<form action="traitement.php?action=register" method="post">
+    <label for="pseudo>Pseudo</label>
