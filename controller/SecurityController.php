@@ -15,7 +15,8 @@ class SecurityController extends AbstractController{
         $pass1 = filter_input(INPUT_POST,"pass1",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $pass2 = filter_input(INPUT_POST,"pass2",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        
+        //si le formulaire est soumis alors (...) sinon par défaut : header("Location: register.php");exit;
+        // AJOUTER if($_POST["submit"]){}
 
         $userManager = new UserManager(); 
         $message="";
@@ -35,7 +36,7 @@ class SecurityController extends AbstractController{
 
             if($user){
                 // si l'utilisateur existe => redirection vers logIn
-                // $security="security";
+                // $ctl="security";
                 // $action="register";
                 // redirectTo($security,$action)
 
@@ -63,8 +64,8 @@ class SecurityController extends AbstractController{
                 }
             }
                    
-        }else{
-            $message = "error" ; 
+        // }else{
+        //     $message = "error" ; 
         }
 
         return [
@@ -76,7 +77,38 @@ class SecurityController extends AbstractController{
         ];
     }
 
-    public function login () {}
+    public function login(){
+
+        $userManager = new UserManager;
+
+        $email = filter_input(INPUT_POST,"email",FILTER_SANITIZE_FULL_SPECIAL_CHARS,FILTER_VALIDATE_EMAIL); 
+        $password = filter_input(INPUT_POST,"password",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $message="";
+
+        if($email && $password){
+            var_dump($password);
+            var_dump($email);
+
+          (...................)
+        }
+
+        return[
+            "view" => VIEW_DIR. "security/login.php",
+            "meta_description" => "logIn",
+            "data" => [
+                "message" => $message
+            ]
+        ];
+    }
+    
 
     public function logout () {}
 }
+
+
+
+
+
+// - si les filtres passent, on retrouve le password correspondant au mail entré dans le formulaire 
+
+

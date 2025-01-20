@@ -41,9 +41,9 @@ h1 {
 }
 
 
-/**************************************** LAYOUT *****/
+/************************************************************************** LAYOUT *****/
 
-/* NAV */
+/* ************** NAV  */
 nav{
     width:99%;
     border-radius: 5px;
@@ -147,7 +147,7 @@ nav{
     }
 
 
-/************* FOOTER */
+/* ************** FOOTER  */
 footer{
     width:100%;
     display: flex;
@@ -220,7 +220,7 @@ footer{
 
 }
 
-    /**************************************** HOME *****/
+/************************************************************************** HOME PAGE *****/
 .wrapper {
     padding:20px;
     }
@@ -321,7 +321,7 @@ footer{
 }
 
 
-    /**************************************** LISTS *****/
+/************************************************************************** CATEGORIES & TOPICS *****/
 
     /* CATEGORIES & TOPICS*/
   .content{
@@ -405,12 +405,7 @@ footer{
         color:var(--blue);
     }
 
-
-
- 
-    
-
-    /* "NEW __" FORMS */
+ /************************************************************************** NEW TOPIC,CATEGORY,POST FORMS *****/
 
     .categories__wrapper-form{
         
@@ -451,5 +446,47 @@ footer{
             }
 
         }
-
     }
+
+ /************************************************************************** REGISTER *****/
+
+        .registerForm{
+            display: flex;
+            flex-direction: column;
+            width:fit-content;
+            margin:50px auto 50px auto;
+            gap:8px;
+        }
+    
+        .registerForm input{
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #DDDDDD;
+            color: #A0A6A3;
+            box-shadow: 1px 5px 9px rgba(211, 211, 211, .7);
+        }
+         #submitRegistration{
+            border : 3px solid var(--bright-green);
+            font-weight:700;
+            font-size:1.2em;
+            background-color:var(--black);
+            color:var(--white);
+        }
+    
+        #submitRegistration:hover{
+            background-color:var(--bright-green);
+            cursor:pointer;
+        }
+    
+        .registrationMessage-container{
+            width:fit-content;
+            margin: 0 auto 100px auto;
+            padding:10px;
+            border-radius:4px;
+        }
+    
+        .registrationMessage{
+            font-weight:700;
+        }
+
+    

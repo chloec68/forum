@@ -14,14 +14,23 @@ class UserManager extends Manager{
         parent::connect();
     }
 
-    // ************************************************
-
     public function findUser($email){
         $sql = "SELECT * FROM " . $this->tableName . " WHERE email = :email"; 
         return $this->getOneOrNullResult(
             DAO::select($sql,['email'=>$email],false),
-        $this->className);
+            $this->className);
     }
 
+    //RENOMMER EN getUser();
+
 }
+
+
+
+
+
+
+
+
+
 
