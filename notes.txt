@@ -361,3 +361,17 @@ if(isset($_SESSION['user'])){            //rappel : isset()=>returns true if $va
     $message = "Bienvenue $user->getUsername()"; (VMC)
     echo "<p>Bienvenu " . $_SESSION['user']['username] . "</p>; (APPLI)
 <?php } ?>
+
+
+*************************
+DANS LA VUE (PROFIL UTILISATEUR): 
+<h1>Mon profil</h1>
+<?php 
+    if(isset($_SESSION['user'])){
+        $infoSession = $_SESSION["user];
+    }
+?>
+
+<p>Pseudo : <?= $infoSession["pseudo"] ?></p>
+<p>Email : <?= $infoSession["email"] ?></p>
+etc.
