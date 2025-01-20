@@ -364,7 +364,7 @@ if(isset($_SESSION['user'])){            //rappel : isset()=>returns true if $va
 
 
 *************************
-DANS LA VUE (PROFIL UTILISATEUR): 
+DANS LA VUE (PROFIL UTILISATEUR): N'EXISTE QUE SI L'UTILISATEUR EST CONNECTE 
 <h1>Mon profil</h1>
 <?php 
     if(isset($_SESSION['user'])){
@@ -375,3 +375,14 @@ DANS LA VUE (PROFIL UTILISATEUR):
 <p>Pseudo : <?= $infoSession["pseudo"] ?></p>
 <p>Email : <?= $infoSession["email"] ?></p>
 etc.
+
+
+
+
+
+*************************
+
+case "Logout":
+    unset($_SESSION["user"]); => suppression du tableau user en session ; unset() => détruit la variable dont le nom a été passé en argument ; 
+    header("Location : index.php?ctrl=home&action=index"); 
+break;
