@@ -154,7 +154,7 @@ abstract class Manager{ //classe ABSTRAITE Manager => cette classe ne peut pas �
     }
 
     protected function getOneOrNullResult($row, $class){ /* $row représente les valeurs d'un enregistrement en bdd ; $class représente une entité/un objet => donc une table
-        donc cette méthode prend en entrée le résultat de la méthode DAO::select() et la classe à utiliser pour crée un objet */
+        donc cette méthode prend en entrée le résultat de la méthode DAO::select() et la classe à utiliser pour créer un objet */
 
         if($row != null){
             return new $class($row);

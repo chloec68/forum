@@ -246,12 +246,12 @@ if(isset($_GET["action"])){
                 $user = $requete->fetch(); // je stocke le résultat de la requête dans $user s'il y en a un; 
                 //si l'utilisateur existe
                 if($user){
-                    header("Location : register.php"); exit;
+                    header("Location : register.php"); exit; // method redirectTo()
                 }else{//si l'utilisateur n'a pas été retrouvé
                     //var_dump("utilisateur inexistant"); 
                     //insertion de l'user en BDD 
                     if($pass1==$pass2 && strlen(pass1)>=12){
-                        $insertUser = $pdo->prepare("INSERT INTO user (nickname,email,password) VALUES (:pseudo,:email,:password)");
+                        $insertUser = $pdo->prepare("INSERT INTO user (nickname,email,password) VALUES (:pseudo,:email,:password)"); // ici on utiliser add()
                         $insertUser->execute([
                             "pseudo"=>$pseudo,
                             "email"=>$email,
