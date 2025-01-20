@@ -206,6 +206,81 @@ $message = "mot de passe ou nom utilisateur inccorrect " => ne pas être trop pr
 ***************************************************************Register_v1_1
 
 register.php 
-
-<form action="traitement.php?action=register" method="post">
+<h1>Sign Up</h1>
+<form action="index.php?ctrl=security&action=register" method="post">
     <label for="pseudo>Pseudo</label>
+    <input type="text" name="pseudo" id="pseudo"><br>
+
+    <label for="email">Mail</label>
+    <input type="email" name="email" id="email"><br>
+
+    <label for="pass1">Mot de passe</label>
+    <input type="password" name="pass1" id="pass1"><br>
+
+    <label for="pass2">Confirmation du mot de passe</label>
+    <input type="password" name="pass2" id="pass2"><br>
+
+    <input type="submit" value="Sign Up"> 
+</form>
+
+=> méthode : post // pas get pour que les variables ne soient pas visibles dans l'URL 
+=> en soumettant formulaire on passe dans 
+=> pour déclencher une action, tout passe par l'url
+=> dans 1ère appli.php, dans le fichier traitement on avait un switchcase : ici pareil, on fait un switch pour traiter les actions register et login : 
+
+if(isset($_GET["action"])){
+    switch($_GET["action]){
+        case "register":
+            //connexion à la BDD
+            $pdo-> new PDO("mysql:host=localhost;dbname=whatever;charset=utf8,"root","");
+            // filtrage des champs 
+            $pseudo = filter_input(INPUT_POST,"pseudo",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $mail = filter_input(INPUT_POST,"email",FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL); // on peut appliquer 2 filtres ici
+            $pass1 = filter_input(INPUT_POST,"pass1",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $pass2 = filter_input(INPUT_POST,"pass2",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            // vérification validité des filtres 
+            if($pseudo && $email && pass1 && pass2){
+                //var_dump("ok");die; 
+                $requete = $pdo->prepare("SELECT * FROM user WHERE email = :email");
+                $requete -> execute(["email"=>$email]);
+                $user = $requete->fetch(); // je stocke le résultat de la requête dans $user s'il y en a un; 
+                //si l'utilisateur existe
+                if($user){
+                    header("Location : register.php"); exit;
+                }else{//si l'utilisateur n'a pas été retrouvé
+                    //var_dump("utilisateur inexistant"); 
+                    //insertion de l'user en BDD 
+                    if($pass1==$pass2 && strlen(pass1)>=12){
+                        $insertUser = $pdo->prepare("INSERT INTO user (nickname,email,password) VALUES (:pseudo,:email,:password)");
+                        $insertUser->execute([
+                            "pseudo"=>$pseudo,
+                            "email"=>$email,
+                            "password"=>password_hash($pass1,PASSWORD_DEFAULT)
+                        ]);
+                        header("Location: login.php"); exit;
+                    }else{
+                        echo $message = "passwords don't match, password too short, etc.";
+                    }
+                }
+
+                //prepare pour lutter contre l'injection SQL
+            }else{
+                $message = "problème de saisie dans le champ du formulaire" ; 
+            }
+        break;
+    }
+}
+
+
+login.php 
+<h1>Sign Up</h1>
+<form action="index.php?ctrl=security&action=login" method="post">
+ 
+    <label for="email">Mail</label>
+    <input type="email" name="email" id="email"><br>
+
+    <label for="pass">Mot de passe</label>
+    <input type="password" name="pass1" id="pass1"><br>
+
+    <input type="submit" value="Sign In"> 
+</form>
