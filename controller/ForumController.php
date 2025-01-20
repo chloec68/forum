@@ -18,7 +18,7 @@ class ForumController extends AbstractController implements ControllerInterface{
         // créer une nouvelle instance de CategoryManager
         $categoryManager = new CategoryManager();
         // récupérer la liste de toutes les catégories grâce à la méthode findAll de Manager.php (triés par nom)
-        $categories = $categoryManager->findAll(["categoryName", "DESC"]); 
+        $categories = $categoryManager->findAll(["categoryName", "ASC"]); 
 
         $message = "";
 
@@ -98,7 +98,9 @@ class ForumController extends AbstractController implements ControllerInterface{
 
             if($categoryName){
                 $categoryManager->add(["categoryName" => $categoryName]);
-                $message = "Category successfully created";
+                // $message = "Category successfully created";
+                header("Location: index.php?ctrl=forum&action=index");
+                exit;
             }else{
                 $message = "Error : couldn't create category";
             }
@@ -270,12 +272,15 @@ class ForumController extends AbstractController implements ControllerInterface{
         $categoryManager = new CategoryManager(); // création d'une nouvelle instance de la classe CategoryManager qui va me permettre de gérer la logique métier liée aux catégories (suppression ici)
         $categories = $categoryManager->findAll(["categoryName", "ASC"]); //
         $category = $categoryManager->findOneById($id); // récupération d'une catégorie en fonction de son id
+        $message="";
 
         if($category){
             $categoryManager->delete($id);// je passe l'id à la méthode delete() du CategoryManager // ou $categoryManager->delete($category['id]);
+            header("Refresh:0");
             $message = "Category " . $category->getCategoryName() . " has been sucessfully deleted";
-        }else{
-            $message = "Category not found or already deleted";
+            exit;
+        // }else{
+            // $message = "Category not found or already deleted";
         }
 
       

@@ -73,3 +73,91 @@ class Topic {
         $this->title = $data['title'];
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hash_v1.1
+
+mot de passe haché : c'est crypté/encodé grâce à une chaîne de caractère ; le but est que le mdp ne soit pas stocké en clair, tel qu'on l'a saisi, dans la
+base de données ; 
+si un site nous renvoie le mdp tel qu'on l'a tapé, le site n'est pas sécurisé : les mdp sont stockés d'une manière non-conforme au RGPD; 
+
+Il existe des algorithmes de hachage/cryptage : 
+- hachage dit "faible" : sha1, sha256, md5 => méthodes de cryptage utilisables, mais ne peuvent pas être utilisés dans le cadre d'un hachage de mdp ; 
+- hachage dit "fort" : bcrypt, argon2i
+
+
+Failles de sécurité d'une applicatio web : 
+-faille XSS 
+-injection SQL 
+-attaque par force brute => tentative de forçage à l'aide d'algorithme pour deviner le mdp (sans se baser sur une base existante)
+-faille CRCF (on s'en prémunit par un système de jetons "tokens")
+-attaque par dictionnaire =>se base sur un dictionnaire qui recense tous les mdp les plus courants  
+
+
+La CNIL recommande 12 caractères pour un mot de passe avec majuscules, minuscules et caractères spéciaux ; voir doc CNIL (anthropie)
+
+Comment faire pour imposer un mdp avec majuscules et caractères spéciaux ? => REGEX ;
+
+<?php 
+
+******algorithme de hachage faible 
+$password = "monMotDePasse1234"; =>Mdp en clair 
+$md5 = hash('md5',$password); fonction native hash() qui attend 2 arugments : une chaîne de caractère (nom de l'algorithme de hachage) + l'élément à hacher
+echo $md5 => affiche mdp haché ; 
+si on actualise la page, le mdp affiché ne change pas => le hachage reste le même ; 
+si on crée une varaible $md5_2 qui contient exactement le même mdp, le résultat du hachage serait exactement le même ; 
+même test avec l'algorithme 'sha256' => même résultat, si ce n'est que la chaîne de caractère de retour est un peu plus longue ; mais pas de regénération
+en cas de refresh de la page et le résultat du hachage reste le même si le mdp est identique 
+
+******algorithme de hachage fort 
+empreinte numérique : ce qui est stocké en BDD (pas seulement la partie hachée d'un mdp) ; l'empreinte de compose : 
+- l'algorithme lui-même : la version de l'algorithme utilisé (préfixe symbolisant la version) 
+- le cost (coût) : permet de contrer les tentatives de piratage 
+- d'un Salt = chaîne de caractère aléatoire ajoutée à l'avant du mdp hâché 
+- du mdp hâché 
+
+précision : peu importe la longueur du mdp saisi par l'utilisateur, ça ne va pas avoir d'influence sur la longueur totale de l'empreinte numérique
+ou du mot de passe hâché ; 
+précision : dans la BDD, le mdp est toujours une chaîne de caractères d'une longueur de 255 caractères ; 
+précision : selon l'algorithme, un pepper est ajouté à l'empreinte numérique ; 
+
+fonction native password_hash : voir doc => PASSWORD_DEFAULT,PASSWORD_BCRYPT,PASSWORD_ARGON2I,PASSWORD_ARGON2ID ;
+
+$hash = password_hash(password en clair,algorithme,options:salt,cost,...)
+$hash = password_hash($password,PASSWORD_DEFAULT); 
+$hash2 = password_hash($password2,PASSWORD_DEFAULT); 
+echo $hash; // empreinte numérique qui change aléatoirement à chaque refresh 
+echo $hash2 // empreinte numérique différente à mdp identiques ; 
+
+précision : on hache le mdp avant l'enregistrement en bdd ; 
+
+********correspondance hachage et mdp en clair 
+password_verify(user's password,hash created by password_hash()) => vérifie qu'un mot de passe corresponde à un hachache ;
+$saisie = "monMotDePasse1234";
+$hash =  password_hash($saisie,PASSWORD_DEFAULT); 
+
+précision : dans le formulaire en front : <input type="password"> (lire doc); cet attribut n'est pas sécurisé => dans un form, clique droit "inspecter" et 
+on peut le modifier ; tout comme un paramètre "required", etc ; le front n'est pas sécurisé puisqu'il est public et modifiable via l'inspecteur ; 
+ce n'est pas de la sécurité, c'est un confort visuel ; pas de principe de sécurité en front ; 
+
+$check = password_verify($saisie,$hash); // return un booleen => true si correspondance, false sinon ; 
+
+
+1. Créer form avec input type="password" ; 
+2. Hacher le mdp (hachage fort) et l'envoyer haché en BDD; 
+3. Mise en place d'un système de correspondance hachage/mdp en clair renseigné par l'user à la connexion ; 
+
+
+
