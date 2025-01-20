@@ -154,10 +154,30 @@ ce n'est pas de la sécurité, c'est un confort visuel ; pas de principe de séc
 
 $check = password_verify($saisie,$hash); // return un booleen => true si correspondance, false sinon ; 
 
+if(password_verify($saisie,$hash)){
+    echo "Les mdp correspondent";
+}else{
+    echo "Les mdp ne correspondent pas";
+}
 
-1. Créer form avec input type="password" ; 
-2. Hacher le mdp (hachage fort) et l'envoyer haché en BDD; 
-3. Mise en place d'un système de correspondance hachage/mdp en clair renseigné par l'user à la connexion ; 
+dans le projet, la condition à mettre en place : 
+formulaire d'inscription : 1er mot de passe + confirmation du mot de passe ; 
+connexion : inupt mail + input password ; mise en place d'une condition, si le mdp est vérifié, l'objet user est stocké en session $_SESSION 
+(pour considérer l'utilisateur connecté) 
+
+                if(password_verify($saisie,$hash)){
+                    $_SESSION['user'] = $user; 
+                }else{
+                    echo "mdp ne correspondent pas";
+                }
+
+                Fichier Session.php => methode setUser() premet la mise en session de l'utilisateur ; 
+
+Pour le logout => unset($_SESSION['user]); 
+
+1. Créer forms avec input type="password" ; 
+2. Hacher le mdp (hachage fort) et l'envoyer haché en BDD; password_hash()
+3. Mise en place d'un système de correspondance hachage/mdp en clair renseigné par l'user à la connexion ; password_verify()
 
 
 
