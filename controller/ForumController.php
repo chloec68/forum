@@ -106,7 +106,7 @@ class ForumController extends AbstractController implements ControllerInterface{
             }
         }
 
-        $categories = $categoryManager->findall(["categoryName","ASC"]);
+        $categories = $categoryManager->findAll(["categoryName","ASC"]);
 
         $result = [
             "view" => VIEW_DIR. "forum/createCategory.php",
