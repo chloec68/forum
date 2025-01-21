@@ -13,7 +13,7 @@
     <!-- <label for="pass1">Password</label> -->
     <input type="password" name="password" id="password" placeholder="Password"> <br>
 
-    <input type="submit" value="Sign In" id="submitRegistration"> 
+    <input type="submit" value="Sign In" id="submitLogin" name="submit"> 
 </form>
 
 

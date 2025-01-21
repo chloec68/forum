@@ -18,7 +18,7 @@ final class User extends Entity{
     private $userName;
     private $password;
     // private $role;
-    // private $email;
+    private $email;
     // private $registrationDate;
 
     public function __construct($data){         
@@ -58,6 +58,19 @@ final class User extends Entity{
         $this->userName = $userName;
 
         return $this;
+    }
+
+    public function getPassword(){
+        return $this->password;
+    }
+
+    public function setPassword($password){
+        $this->password = $password;
+    }
+
+
+    public function getEmail(){
+        return $this->email;
     }
     
 

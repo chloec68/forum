@@ -1,5 +1,6 @@
 <?php
     $message = $result['data']['message'];
+    $user = $result['data']['user'];
 
 ?>
 
@@ -22,4 +23,9 @@
 </form>
 
 <div class="registrationMessage-container"><p class="registrationMessage"><?=$message?></p></div>
+
+<?php if($user){?>
+    <div class="container__logIn-link"><a class="logIn-link" href="index.php?ctrl=security&action=login">Sign In <i class="fa-solid fa-right-to-bracket"></i></a></div>
+<?php }?>
+
 

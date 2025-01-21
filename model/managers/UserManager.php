@@ -21,8 +21,6 @@ class UserManager extends Manager{
             $this->className);
     }
 
-    //RENOMMER EN getUser();
-
 }
 
 

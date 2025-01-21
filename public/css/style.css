@@ -448,45 +448,61 @@ footer{
         }
     }
 
- /************************************************************************** REGISTER *****/
+ /************************************************************************** REGISTER & LOG IN (SIGN IN & SIGN UP) *****/
 
-        .registerForm{
-            display: flex;
-            flex-direction: column;
-            width:fit-content;
-            margin:50px auto 50px auto;
-            gap:8px;
-        }
-    
-        .registerForm input{
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #DDDDDD;
-            color: #A0A6A3;
-            box-shadow: 1px 5px 9px rgba(211, 211, 211, .7);
-        }
-         #submitRegistration{
-            border : 3px solid var(--bright-green);
-            font-weight:700;
-            font-size:1.2em;
-            background-color:var(--black);
-            color:var(--white);
-        }
-    
-        #submitRegistration:hover{
-            background-color:var(--bright-green);
-            cursor:pointer;
-        }
-    
-        .registrationMessage-container{
-            width:fit-content;
-            margin: 0 auto 100px auto;
-            padding:10px;
-            border-radius:4px;
-        }
-    
-        .registrationMessage{
-            font-weight:700;
-        }
+    .registerForm, .loginForm{
+        display: flex;
+        flex-direction: column;
+        width:fit-content;
+        margin:50px auto 50px auto;
+        gap:8px;
+    }
+
+    .registerForm input, .loginForm input{
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #DDDDDD;
+        color: #A0A6A3;
+        box-shadow: 1px 5px 9px rgba(211, 211, 211, .7);
+    }
+        #submitRegistration, #submitLogin{
+        border : 3px solid var(--bright-green);
+        font-weight:700;
+        font-size:1.2em;
+        background-color:var(--black);
+        color:var(--white);
+    }
+
+    #submitRegistration:hover, #submitLogin:hover{
+        background-color:var(--bright-green);
+        cursor:pointer;
+    }
+
+    .registrationMessage-container, .loginMessage-container{
+        width:fit-content;
+        margin: 0 auto 100px auto;
+        padding:10px;
+        border-radius:4px;
+    }
+
+    .registrationMessage, .loginMessage{
+        font-weight:700;
+    }
 
     
+/* SIGN IN BUTTON */
+
+    .container__logIn-link{
+        width:fit-content;
+        margin:10px auto 100px auto;
+        border:2px solid var(--blue);
+        border-radius:4px;
+        padding:5px;
+        background-color:var(--black);
+        font-weight:700;
+    }
+
+    .logIn-link, .logIn-link i{
+        color:var(--white);
+        text-decoration:none;
+    }

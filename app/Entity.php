@@ -2,7 +2,7 @@
 namespace App;
 
 abstract class Entity{
-
+/** La méthode publique hydrate() reçoit un tableau de données $data en argument et est conçue pour gérer l'hydratation des objets */
     protected function hydrate($data){
 
         foreach($data as $field => $value){
