@@ -29,36 +29,45 @@ class SecurityController extends AbstractController{
             // var_dump($pass1);
             // var_dump($pass2);
             // die;
-            $user = $userManager->findUser($email);
+
+            $regex = " /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ ";
+            // var_dump($test = preg_match($regex,$pass1));die;
+            
+            if(preg_match($regex,$pass1)){
+
+                $user = $userManager->findUser($email);
             // var_dump($user);die;
 
-            if($user){
-                // var_dump($user);die;
-               header("Location: index.php?ctrl=security&action=login");
+                if($user){
+                    // var_dump($user);die;
+                    header("Location: index.php?ctrl=security&action=login");
 
-            }else{
-                 // si l'utilisateur n'existe pas, on l'ajoute en BDD
-                if($pass1==$pass2 && strlen($pass1)>=2){
-
-                    $data = ["userName" => $userName,
-                            "email"=> $email,
-                            "password"=>password_hash($pass1,PASSWORD_DEFAULT),
-                            "role"=>"user"];
-            
-                    $user = $userManager->add($data);
-                    $message="Signed up!";
-    
                 }else{
-                    if($pass1 !==$pass2){
-                        $message = "passwords don't match";
-                    }else if(strlen($pass1<12)){
-                        $message= "password is too short";
-                    }else{
-                        $message = "couldn't create account";
-                    }
+                    // si l'utilisateur n'existe pas, on l'ajoute en BDD
+                    if($pass1==$pass2 && strlen($pass1)>=12){
+
+                        $data = ["userName" => $userName,
+                                "email"=> $email,
+                                "password"=>password_hash($pass1,PASSWORD_DEFAULT),
+                                "role"=>"user"];
+                
+                        $user = $userManager->add($data);
+                        $message="Signed up!";
+            
+                        }else{
+                            if($pass1 !==$pass2){
+                                $message = "passwords don't match";
+                            }else if(strlen($pass1<12)){
+                                $message= "password is too short";
+                            }else{
+                                $message = "couldn't create account";
+                            }
+                        }
                 }
             }
         }
+
+            
 
         return [
             "view" => VIEW_DIR. "security/register.php",
@@ -130,3 +139,26 @@ class SecurityController extends AbstractController{
     }
 }
 
+
+
+
+
+
+
+
+// Recommandations CNIL relatives aux mots de passe : 
+// Pour un mot de passe de douze caractères ou plus, votre phrase doit contenir au moins :
+
+// Un nombre
+// Une majuscule
+// Un signe de ponctuation ou un caractère spécial (dollar, dièse, ...)
+// Une douzaine de mots
+
+
+// preg_match() => recherche correspondance avec une expression rationnelle (REGEX)
+// paramètre 1 : regex
+// paramètre 2 : mot de passe en clair
+
+// $regex = " /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ ";
+// preg_match($regex,$pass1);
+// génère 0 si pas de correspondance, 1 si correspondance
