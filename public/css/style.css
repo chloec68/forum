@@ -18,7 +18,7 @@
     --blue:#5de4e4;
     --white: #FFF;
     --grey:#6c6c6c;
-    
+    --red:#e83030;
 }
 
 html{
@@ -146,6 +146,34 @@ nav{
         top:6px;
     }
 
+    /* NAV-RIGHT - CONNECTED STATUS - LOGOUT BUTTON + CONNECTED USER */
+
+    .connecterUser-container{
+        display: flex;
+    }
+
+    .connectedUser{
+        color:var(--white);
+        font-weight:700;
+        display: flex;
+        align-items: baseline;
+    }
+    
+    .fas {
+        margin-right: 5px;
+        font-size:1.5em;
+        color:var(--bright-green);   
+    }
+
+    .signOut-button{
+        border: 2px solid var(--red);
+    }
+
+    .signOut-button:hover{
+        background-color:var(--red);
+    }
+
+
 
 /* ************** FOOTER  */
 footer{
@@ -220,7 +248,7 @@ footer{
 
 }
 
-/************************************************************************** HOME PAGE *****/
+/************************************************************************** HOME PAGE VIEW*****/
 .wrapper {
     padding:20px;
     }
@@ -321,7 +349,7 @@ footer{
 }
 
 
-/************************************************************************** CATEGORIES & TOPICS *****/
+/************************************************************************** CATEGORIES & TOPICS VIEWS*****/
 
     /* CATEGORIES & TOPICS*/
   .content{
@@ -405,7 +433,7 @@ footer{
         color:var(--blue);
     }
 
- /************************************************************************** NEW TOPIC,CATEGORY,POST FORMS *****/
+ /************************************************************************** NEW TOPIC,CATEGORY,POST FORMS VIEWS *****/
 
     .categories__wrapper-form{
         
@@ -448,7 +476,7 @@ footer{
     }
 
 
- /************************************************************************** CREATE CATEGORY FORM *****/
+ /************************************************************************** CREATE CATEGORY FORM VIEW *****/
 
     .createCategory-wrapper {
         width:fit-content;
@@ -494,7 +522,7 @@ footer{
         cursor:pointer;
         margin:auto;
     }
- /************************************************************************** REGISTER & LOG IN (SIGN IN & SIGN UP) *****/
+ /************************************************************************** REGISTER & LOG IN (SIGN IN & SIGN UP) VIEWS *****/
 
     .registerForm, .loginForm{
         display: flex;

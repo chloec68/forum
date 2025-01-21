@@ -50,8 +50,8 @@
                             // si l'utilisateur est connecté 
                             if(App\Session::getUser()){
                                 ?>
-                                <a href="index.php?ctrl=security&action=profile"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
-                                <a href="index.php?ctrl=security&action=logout">Déconnexion</a>
+                                <div class="connecterUser-container"><a class="connectedUser" href="index.php?ctrl=security&action=profile"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a></div>
+                                <a class="signOut-button sign" href="index.php?ctrl=security&action=logout">Déconnexion</a>
                                 <?php
                             }
                             else{

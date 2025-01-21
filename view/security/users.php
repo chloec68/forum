@@ -19,13 +19,3 @@
             <?php }?>
         </div>
     </div>
-
-
-
-
-
-
-<style>
-
-
-</style>
