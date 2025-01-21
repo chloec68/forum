@@ -31,8 +31,9 @@ class SecurityController extends AbstractController{
             // die;
 
             $regex = " /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ ";
+            // /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[!@#$%^&*()_+{}\[\]:;"'<>,.?/\\|`~\-]))[A-Za-z\d!@#$%^&*()_+{}\[\]:;"'<>,.?/\\|`~\-]{12,}$/
             // var_dump($test = preg_match($regex,$pass1));die;
-            
+
             if(preg_match($regex,$pass1)){
 
                 $user = $userManager->findUser($email);
@@ -78,6 +79,8 @@ class SecurityController extends AbstractController{
             ]
         ];
     }
+
+
 
     public function login(){
         // session_start();  "Ignoring session_start() because a session is already active : index.php on line 23"; 
@@ -132,6 +135,8 @@ class SecurityController extends AbstractController{
                 ]
             ];
     }
+
+
     
     public function logout() {
         unset($_SESSION["user"]);
@@ -162,3 +167,5 @@ class SecurityController extends AbstractController{
 // $regex = " /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ ";
 // preg_match($regex,$pass1);
 // génère 0 si pas de correspondance, 1 si correspondance
+
+//$regex = " /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[!@#$%^&*()_+{}\[\]:;"'<>,.?/\\|`~\-]))[A-Za-z\d!@#$%^&*()_+{}\[\]:;"'<>,.?/\\|`~\-]{12,}$/ ";
