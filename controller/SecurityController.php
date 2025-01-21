@@ -94,7 +94,7 @@ class SecurityController extends AbstractController{
                 if ($user){
                     // note: $user n'est pas un tableau, mais un objet donc $hash = $user["password"] renvoie une erreur
                     // donc $user->password ; Or password est une propriété privée, donc utilisation d'une méthode publique pour y accéder
-                    // et nécessité de définire une méthode publique setPassword() en raison de la méthode d'hydratation d'Entities
+                    // et nécessité de définir une méthode publique setPassword() en raison de la méthode d'hydratation d'Entities
                    
                     $hash = $user->getPassword();
                     // var_dump($hash);die;
@@ -102,7 +102,6 @@ class SecurityController extends AbstractController{
                     // var_dump($check); die;
 
                     if($hash && password_verify($password,$hash)){
-                        
                         $_SESSION["user"]=$user;
                         header("Location: index.php?ctrl=home&action=index");
                     }else{
@@ -125,10 +124,9 @@ class SecurityController extends AbstractController{
             ];
     }
     
-
-    public function logout () {}
+    public function logout() {
+        unset($_SESSION["user"]);
+        header("Location : index.php?ctrl=home&action=index");
+    }
 }
-
-
-
 
