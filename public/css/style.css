@@ -158,6 +158,10 @@ nav{
         display: flex;
         align-items: baseline;
     }
+
+    .connectedUser:hover{
+      
+    }
     
     .fas {
         margin-right: 5px;
