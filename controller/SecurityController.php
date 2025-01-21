@@ -71,7 +71,8 @@ class SecurityController extends AbstractController{
     }
 
     public function login(){
-        // session_start();  Ignoring session_start() because a session is already active : index.php on line 23
+        // session_start();  "Ignoring session_start() because a session is already active : index.php on line 23"; 
+        // Rappel : nécessaire de démarrer une session pour utiliser la superglobale $_SESSION;
         $userManager = new UserManager;
 
         $email = filter_input(INPUT_POST,"email",FILTER_SANITIZE_FULL_SPECIAL_CHARS,FILTER_VALIDATE_EMAIL); 
@@ -92,8 +93,8 @@ class SecurityController extends AbstractController{
     
                 if ($user){
                     // note: $user n'est pas un tableau, mais un objet donc $hash = $user["password"] renvoie une erreur
-                    // donc $user->password ; Or password est une propriété privée, donc utilisation d'une méthode publique
-                    // pour y accéder
+                    // donc $user->password ; Or password est une propriété privée, donc utilisation d'une méthode publique pour y accéder
+                    // et nécessité de définire une méthode publique setPassword() en raison de la méthode d'hydratation d'Entities
                    
                     $hash = $user->getPassword();
                     // var_dump($hash);die;
