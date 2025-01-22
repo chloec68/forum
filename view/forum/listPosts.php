@@ -1,6 +1,7 @@
 <?php
     $topic = $result["data"]['topic']; 
     $posts = $result["data"]['posts']; 
+    
 ?>
 <div class="wrapper">
     <h1>Posts</h1>
@@ -9,15 +10,17 @@
     <div class="listPosts__posts-wrapper">
 
         <?php if($posts){
-            foreach($posts as $post){?>
+            
+            foreach($posts as $post){
+                ?>
                 <div class="listPosts__singlePost">
                     <div class="user">
                         <img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
-                        <p>nickname</p>
+                        <p><p><?= $topic->getUser()->getUserName() ?></p></p>
                     </div>
                     <div class="post-links-and-path">
                             <div class="post-path">
-                                <p class="path">category/<?=$topic->getTitle()?></p>
+                                <p class="path">Topic/<?=$topic->getTitle()?></p>
                             </div>
                             <div class="post-links">
                                 <p><i class="fa-solid fa-square-share-nodes"></i></p>
@@ -30,6 +33,7 @@
         <?php
             }
         }
+        
         ?>
         
     </div>
