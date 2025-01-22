@@ -89,6 +89,14 @@ final class User extends Entity{
         return $this;
     }
 
+    public function hasRole($role){
+        if ($this->role !== "user"){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function getRegistrationDate(){
         return $this->registrationDate;
     }

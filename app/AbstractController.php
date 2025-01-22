@@ -25,12 +25,21 @@ abstract class AbstractController{
         die();
     }
 
-    // public function restrictTo($role){
+    public function restrictTo($role){
         
-    //     if(!Session::getUser() || !Session::getUser()->hasRole($role)){
-    //         $this->redirectTo("security", "login");
-    //     }
-    //     return;
-    // }
+        if(!Session::getUser() || !Session::getUser()->hasRole($role)){
+            $this->redirectTo("security", "login");
+        }
+        return;
+    }
+
+    /* if(!Session::getUser()) => vérifie si un utilisateur est actuellement connecté 
+    La méthode getUser() de la classe Session vérfie la présence d'un utilisateur en session ; en l'absence d'utilisateur, renvoie false: 
+      public static function getUser(){
+        return (isset($_SESSION['user'])) ? $_SESSION['user'] : false;
+
+
+        !Session::getUser()->hasRole($role) => vérification du rôle de l'utilisateur : si l'utilisateur ne possède aucun rôle particulier, la valeur de retour est "vraie"
+    }*/
 
 }

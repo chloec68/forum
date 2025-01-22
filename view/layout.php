@@ -35,11 +35,11 @@
                             <a href="index.php">Home page</a>
                             <a href="index.php?ctrl=forum&action=index">List of categories</a>
                             <?php
-                            // if(App\Session::isAdmin()){
+                            if(App\Session::isAdmin()){
                                 ?>
                                 <a href="index.php?ctrl=home&action=users">See all users</a>
                             <?php
-                        //  } 
+                         } 
                          ?>
                         </div>
                         <div class="nav__search-bar">
