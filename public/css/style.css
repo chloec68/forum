@@ -387,7 +387,7 @@ footer{
     }
 
     .topic-container{
-        height:180px;
+        height:fit-content;
         padding:10px;
         width:20%;
         display: flex;
@@ -437,7 +437,7 @@ footer{
         color:var(--blue);
     }
 
- /************************************************************************** NEW TOPIC,CATEGORY,POST FORMS VIEWS *****/
+ /************************************************************************** NEW TOPIC FORM,CATEGORY,POST FORMS VIEWS *****/
 
     .categories__wrapper-form{
         
@@ -457,6 +457,7 @@ footer{
             display: flex;
             flex-direction:column;
             align-items: center;
+            
 
             #new, #submit{
                 outline: none;
@@ -464,6 +465,7 @@ footer{
                 border: 1px solid var(--light-purple);
                 border-radius: 4px;
                 color:var(--black);
+              
             }
 
             #new{
@@ -481,7 +483,7 @@ footer{
     }
 
 
- /************************************************************************** CREATE CATEGORY FORM VIEW *****/
+ /************************************************************************** CREATE A CATEGORY__FORM (VIEW) *****/
 
     .createCategory-wrapper {
         width:fit-content;
@@ -522,7 +524,7 @@ footer{
         width:30%;
     }
     
-    #createCategory-submit:hover{
+    #createCategory-submit:hover,#submit{
         background-color:var(--purple);
         cursor:pointer;
         margin:auto;
