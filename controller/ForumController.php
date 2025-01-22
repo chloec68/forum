@@ -214,6 +214,7 @@ class ForumController extends AbstractController implements ControllerInterface{
      
         $category = $categoryManager->findOneById($idCategory);
         // var_dump($category);
+        $this->restrictTo("ROLE_USER");
 
         $updatedCategory = filter_input(INPUT_POST,"updatedCategory",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
      
@@ -238,6 +239,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         de la classe abstraite Manager car la classe TopicManager étend la classe Manager - les méthodes (publiques et protégées) sont disponibles pour
         les instances de TopicManager */
         /* la classe TopicManager hérite donc de la méthode publique findOneById($id), edit() et de la méthode protégée connect() */
+
+        $this->restrictTo("ROLE_USER");
 
         $topic = $topicManager -> findOneById($idTopic); // j'appelle la méthode findOneById() sur l'objet $topicManager et je contiens le résultat dans la variable $topic
 
@@ -274,6 +277,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         $category = $categoryManager->findOneById($id); // récupération d'une catégorie en fonction de son id
         $session = new Session();
 
+        $this->restrictTo("ROLE_USER");
+
         if($category){
             $delete = $categoryManager->delete($id);
             if($delete){
@@ -297,6 +302,8 @@ class ForumController extends AbstractController implements ControllerInterface{
     public function deleteTopicAndRelatedPosts($id){
         $topicManager = new TopicManager(); 
         $postManager = new PostManager();
+
+        $this->restrictTo("ROLE_USER");
 
         $session = new Session();
 
