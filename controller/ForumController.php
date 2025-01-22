@@ -272,25 +272,24 @@ class ForumController extends AbstractController implements ControllerInterface{
         $categoryManager = new CategoryManager(); // création d'une nouvelle instance de la classe CategoryManager qui va me permettre de gérer la logique métier liée aux catégories (suppression ici)
         $categories = $categoryManager->findAll(["categoryName", "ASC"]); //
         $category = $categoryManager->findOneById($id); // récupération d'une catégorie en fonction de son id
-        $message="";
+        $session = new Session();
 
         if($category){
-            $categoryManager->delete($id);// je passe l'id à la méthode delete() du CategoryManager // ou $categoryManager->delete($category['id]);
-            header("Refresh:0");
-            $message = "Category " . $category->getCategoryName() . " has been sucessfully deleted";
-            exit;
-        // }else{
-            // $message = "Category not found or already deleted";
+            $delete = $categoryManager->delete($id);
+            if($delete){
+                $session->addFlash("sucess","Category has been sucessfully deleted");
+                header("Location: index.php?ctrl=forum&action=index");exit;
+            }else{
+                $session->addFlash("error","couldn't delete category");
+                header("Location: index.php?ctrl=home&action=index");exit;
+            }
         }
-
-      
+        
         return [
             "view" => VIEW_DIR. "forum/listCategories.php",
             "meta_description" => "", 
             "data" => [
-                "message" => $message,// passage du message à la vue ; inutile de passes les informations de la cat supprimée qui ne seront plus dispo en BDD;
                 "categories" => $categories // obligée de passer toutes les catégories car la vue contenait déjà $categories en raison de la méthode index() qui renvoie à la même vue
-               
             ]
         ];
     }
@@ -299,21 +298,22 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topicManager = new TopicManager(); 
         $postManager = new PostManager();
 
+        $session = new Session();
+
         $topic = $topicManager -> findOneById($id); 
         $relatedPosts = $postManager -> findPostsByTopic($id);    
-
 
         if($topic){
             $topicManager->delete($id);
             $postManager->delete($id);
-            $message = "Topic and all related posts sucessfully deleted";
-            header('Location : index.php');
+            $session->addFlash("success","Topic successfully deleted");
+            header("Location : index.php?ctrl=home&action=index");
         }else{
             $message = "Error - couldn't delete topic and related posts";
         }
 
         return [
-            "view" => VIEW_DIR. "forum/deleteTopic.php",
+            "view" => VIEW_DIR. "forum/listTopics.php",
             "meta_description" => "", 
             "data" => [
                 "message" => $message,

@@ -1,6 +1,6 @@
 <?php
     $categories = $result["data"]['categories']; 
-    $message = $result['data']['message'];
+
 
     /*
     $result = [
@@ -22,7 +22,7 @@
     ];
     */
 ?>
-<?= $message ."<br>"?>
+
 <div class="createCategory__container">
     <div class="createCategory-border">
         <a class="createCategory-link" href="index.php?ctrl=forum&action=createCategory">Create a category <i class="fa-solid fa-plus"></i></a>
