@@ -89,6 +89,9 @@ class ForumController extends AbstractController implements ControllerInterface{
     function createCategory(){
         $categoryManager = new CategoryManager();
 
+        $this->restrictTo("ROLE_USER");
+
+
         $categoryName ="";
         $message=null;
 
@@ -129,6 +132,9 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
         $postManager = new PostManager();
+
+        $this->restrictTo("ROLE_USER");
+
 
         // le form d'ajout est dans ma vue détail catégorie, je vérifie que la mathod du form est bien en post et que la methode s'appelle bien create topic
         $newTopic = filter_input(INPUT_POST,"title",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -182,6 +188,9 @@ class ForumController extends AbstractController implements ControllerInterface{
         //Je crée une nouvelle instance de PostManager 
         $postManager = new PostManager();
         $topicManager = new TopicManager();
+
+        $this->restrictTo("ROLE_USER");
+
 
         $newPost = filter_input(INPUT_POST,"content",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // var_dump($newPost);
