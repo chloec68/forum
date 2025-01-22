@@ -357,6 +357,7 @@ footer{
 /************************************************************************** LISTS (CATEGORIES & TOPICS & POSTS) - VIEWS*****/
 
     /* CATEGORIES & TOPICS*/
+
   .content{
     display: flex;
     padding:30px;
@@ -465,7 +466,12 @@ footer{
     }
 
  /************************************************************************** NEW TOPIC FORM,CATEGORY,POST FORMS VIEWS *****/
-
+    .createTopic-wrapper{
+        display:flex;
+        justify-content:center;
+        padding:50px;
+    }
+    
     .categories__wrapper-form{
         
       display:flex;
@@ -555,6 +561,25 @@ footer{
         background-color:var(--purple);
         cursor:pointer;
         margin:auto;
+    }
+
+
+    .createCategory-link{
+        text-decoration:none;
+        color:var(--white);
+    }
+    
+    .createCategory__container{
+        display:flex;
+       justify-content:flex-end;
+       margin:20px;
+    }
+    
+    .createCategory-border{
+        border:2px solid var(--purple);
+        background-color:var(--purple);
+        border-radius:4px;
+        padding:2px;
     }
  /************************************************************************** REGISTER & LOG IN (SIGN IN & SIGN UP) VIEWS *****/
 

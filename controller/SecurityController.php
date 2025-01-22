@@ -185,5 +185,3 @@ class SecurityController extends AbstractController{
 // $regex = " /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/ ";
 // preg_match($regex,$pass1);
 // génère 0 si pas de correspondance, 1 si correspondance
-
-//$regex = " /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[!@#$%^&*()_+{}\[\]:;"'<>,.?/\\|`~\-]))[A-Za-z\d!@#$%^&*()_+{}\[\]:;"'<>,.?/\\|`~\-]{12,}$/ ";

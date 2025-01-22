@@ -35,7 +35,7 @@ class HomeController extends AbstractController implements ControllerInterface {
         $user = $userManager->findOneById($id);
 
         $postManager = new PostManager();
-        // ici les posts ne sont pas récupérés : $posts = NULL
+    
         $posts = $postManager->findPostsByUser($id);
 
         return [

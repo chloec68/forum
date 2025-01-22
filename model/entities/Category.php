@@ -39,8 +39,6 @@ final class Category extends Entity{
         return $this;
     }
 
-   
-
     /**
      * Get the value of categoryName
      */ 

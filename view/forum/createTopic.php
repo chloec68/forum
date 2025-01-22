@@ -1,8 +1,6 @@
 <?php
     $category=$result['data']['category'];
-    $message=$result['data']['message'];
 ?>
-<h2><?=$message?></h2>
 <div class=createTopic-wrapper>
    <div class="form-wrapper topics__wrapper-form">
         <form action="index.php?ctrl=forum&action=createTopic&id=<?= $category->getId()?>" method="post">
@@ -18,15 +16,6 @@
     </div>
 </div>
 
-<style>
-    h2{
-        text-align:center;
-        margin:50px;
-    }
-    .createTopic-wrapper{
-        display:flex;
-        justify-content:center;
-        padding:50px;
-    }
 
-</style>
+   
+

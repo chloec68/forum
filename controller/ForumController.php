@@ -20,15 +20,12 @@ class ForumController extends AbstractController implements ControllerInterface{
         // récupérer la liste de toutes les catégories grâce à la méthode findAll de Manager.php (triés par nom)
         $categories = $categoryManager->findAll(["categoryName", "ASC"]); 
 
-        $message = "";
-
         // le controller communique avec la vue "listCategories" (view) pour lui envoyer la liste des catégories (data)
         $result = [
             "view" => VIEW_DIR."forum/listCategories.php",
             "meta_description" => "categories",
             "data" => [
                 "categories" => $categories,
-                "message" =>$message
             ]
         ];
 
@@ -67,13 +64,10 @@ class ForumController extends AbstractController implements ControllerInterface{
     public function listPostsByTopic($id){
         $postManager = new PostManager();
         $topicManager = new TopicManager();
-     
 
         $session = new Session();
         $topic = $topicManager ->findOneById($id);
         $posts = $postManager->findPostsByTopic($id);
-
-        
 
         if(empty($posts)){
             $session->addFlash("error","No post yet");
@@ -92,12 +86,11 @@ class ForumController extends AbstractController implements ControllerInterface{
 
     function createCategory(){
         $categoryManager = new CategoryManager();
+        $session = new Session();
 
         $this->restrictTo("ROLE_USER");
 
-
         $categoryName ="";
-        $message=null;
 
         if(isset($_POST['submit'])){
             
@@ -105,11 +98,11 @@ class ForumController extends AbstractController implements ControllerInterface{
 
             if($categoryName){
                 $categoryManager->add(["categoryName" => $categoryName]);
-                // $message = "Category successfully created";
+                $session->addFlash("success","Category sucessfully created");
                 header("Location: index.php?ctrl=forum&action=index");
                 exit;
             }else{
-                $message = "Error : couldn't create category";
+                $session->addFlash("error","Error : couldn't create category");
             }
         }
 
@@ -121,15 +114,15 @@ class ForumController extends AbstractController implements ControllerInterface{
             "data" => [
                 "categories" =>$categories,
                 "categoryName"=>$categoryName,
-                "message"=>$message
             ]
         ];
 
         return $result;
         
     }
+
     // creation de fonction qui permet d'ajouter un topic à une catégorie
-    // je mets en paramètres l'id de la catégorie afin de la récupérer dans l'url
+    // je mets en paramètres l'id de la catégorie afin de le récupérer dans l'url
     public function createTopic($idCategory){
 
         // je crée une nouvelle instance de topic manger. La couche modèle s'occupe de la logique métier ( la couche qui d'occupe ds données et de l'accès à la bdd)
@@ -156,8 +149,6 @@ class ForumController extends AbstractController implements ControllerInterface{
 
         // j'ai filtré mes données venant du form pour me protéger de la faille XSS
         $category = $categoryManager->findOneById($idCategory);
-
-
         
         // Si la sanitisation s'est bien passé pour les DEUX champs (car je souhaite que le créateur d'un topic crée obligatoirement un premier post)
         if($newTopic && $firstPost){
@@ -176,7 +167,7 @@ class ForumController extends AbstractController implements ControllerInterface{
                 "user_id"=>$userId,
                 "topic_id"=>$idTopic
             ]);
-
+            $session->addFlash("success","Success!");
             header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$idCategory");
             exit;
         }else{
@@ -270,6 +261,8 @@ class ForumController extends AbstractController implements ControllerInterface{
         les instances de TopicManager */
         /* la classe TopicManager hérite donc de la méthode publique findOneById($id), edit() et de la méthode protégée connect() */
 
+        $session = new Session();
+
         $this->restrictTo("ROLE_USER");
 
         $topic = $topicManager -> findOneById($idTopic); // j'appelle la méthode findOneById() sur l'objet $topicManager et je contiens le résultat dans la variable $topic
@@ -286,7 +279,9 @@ class ForumController extends AbstractController implements ControllerInterface{
             $topicManager->edit($idTopic,["title"=>$updatedTopic]); /*J'appelle la méthode edit() sur l'objet $topicManager et je lui passe en paramètre
             l'identifiant du topic ($idTopic) ainsi qu'un tableau associatif contenant la clé "title" et la valeur associée à $updatedTopic. */
 
-            header("Location:index.php");
+            $session->addFlash("success","Topic successfully updated");
+
+            header("Location: index.php?ctrl=home&action=index");
             exit;
         }
 

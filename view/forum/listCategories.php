@@ -7,14 +7,12 @@
         "view" => "forum/listCategories.php",
         "meta_description" => "Liste des catégories du forum",
         "data" => [
-            "categories" => $categories // Ce qui est probablement un tableau d'objets ou un tableau associatif représentant les catégories
+            "categories" => $categories
         ]
     ];
 
     => $result est une variable qui contient les données envoyées à la vue par le CONTROLLER
-    */
 
-    /*
     $categories = [
         ['id' => 1, 'categoryName' => 'Science'],
         ['id' => 2, 'categoryName' => 'Technology'],
@@ -48,24 +46,3 @@
             </div>
     </div>
 </div>
-
-
-<style>
-    .createCategory-link{
-        text-decoration:none;
-        color:var(--white);
-    }
-
-    .createCategory__container{
-        display:flex;
-       justify-content:flex-end;
-       margin:20px;
-    }
-
-    .createCategory-border{
-        border:2px solid var(--purple);
-        background-color:var(--purple);
-        border-radius:4px;
-        padding:2px;
-    }
-</style>

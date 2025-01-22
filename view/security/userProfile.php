@@ -8,7 +8,7 @@
 <p><?= $user->getRegistrationDate()?></p>
 <p><?=$user->getAvatar()?><p>
 <p><?= $user->getRole()?></p>
-
+<p>author of :</p>
 <?php 
 if($posts){
     foreach($posts as $post){

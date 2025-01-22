@@ -1,9 +1,4 @@
-<?php
-    $message = $result['data']['message'];
-?>
 
-
-<p class="loginMessage"><?= $message ?></p>
         <div class="page createCategory-wrapper">
             <form action="index.php?ctrl=forum&action=createCategory" method="post">
                 <label class="createCategory-label" for="new">Create a category:</label>
