@@ -15,7 +15,7 @@
    
 
     <div class="posts-wrapper">
-        <div class="posts">
+        <div class="singlePost">
             <div class="user">
                 <img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
                 <p>nickname</p>
@@ -33,7 +33,7 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ut nemo quia voluptas numquam, itaque ipsa soluta ratione eum temporibus aliquid, facere rerum in laborum debitis labore aliquam ullam cumque.</p>
         </div>
 
-        <div class="posts">
+        <div class="singlePost">
             <div class="user">
                 <img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
                 <p>nickname</p>
@@ -51,7 +51,7 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ut nemo quia voluptas numquam, itaque ipsa soluta ratione eum temporibus aliquid, facere rerum in laborum debitis labore aliquam ullam cumque.</p>
         </div>
 
-        <div class="posts">
+        <div class="singlePost">
             <div class="user">
                 <img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
                 <p>nickname</p>
@@ -69,7 +69,7 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ut nemo quia voluptas numquam, itaque ipsa soluta ratione eum temporibus aliquid, facere rerum in laborum debitis labore aliquam ullam cumque.</p>
         </div>
 
-        <div class="posts">
+        <div class="singlePost">
             <div class="user">
                 <img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
                 <p>nickname</p>
@@ -87,7 +87,7 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ut nemo quia voluptas numquam, itaque ipsa soluta ratione eum temporibus aliquid, facere rerum in laborum debitis labore aliquam ullam cumque.</p>
         </div>
 
-        <div class="posts">
+        <div class="singlePost">
             <div class="user">
                 <img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
                 <p>nickname</p>
@@ -104,7 +104,7 @@
             </div>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ut nemo quia voluptas numquam, itaque ipsa soluta ratione eum temporibus aliquid, facere rerum in laborum debitis labore aliquam ullam cumque.</p>
         </div>
-        <div class="posts">
+        <div class="singlePost">
             <div class="user">
                 <img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
                 <p>nickname</p>
