@@ -132,8 +132,12 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
         $postManager = new PostManager();
+        $session = new Session();
 
         $this->restrictTo("ROLE_USER");
+
+        $user = $session->getUser();
+        $userId = $user->getId();
 
 
         // le form d'ajout est dans ma vue détail catégorie, je vérifie que la mathod du form est bien en post et que la methode s'appelle bien create topic
@@ -156,7 +160,7 @@ class ForumController extends AbstractController implements ControllerInterface{
             // Mon topicManager n'a pas de fonction add mais hérite du manager général 
             // grâce au principe d'héritage, une classe fille (topic manager) peut hériter des classes de sa classe mère (manager)
             $topicManager->add(['title' => $newTopic,
-                                'user_id'=>"1",
+                                'user_id'=>$userId,
                                 'category_id'=>$idCategory,
                                 'closed'=>0]);
             // j'appelle le post manager pour pouvoir hériter du add
@@ -185,12 +189,17 @@ class ForumController extends AbstractController implements ControllerInterface{
     //Je mets l'id (du topic) en paramètre afin de le récupérer dans l'URL
 
     public function createPost($idTopic){
-        //Je crée une nouvelle instance de PostManager 
+
         $postManager = new PostManager();
         $topicManager = new TopicManager();
+        $session = new Session();
+
+        $user = $session->getUser();
+        // var_dump($user);
+        $userId = $user->getId();
+        // var_dump($userId);
 
         $this->restrictTo("ROLE_USER");
-
 
         $newPost = filter_input(INPUT_POST,"content",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // var_dump($newPost);
@@ -203,7 +212,7 @@ class ForumController extends AbstractController implements ControllerInterface{
         if($newPost){
             $postManager->add(["content"=>$newPost,
                                 "topic_id"=>$idTopic,
-                                "user_id"=>"2"]);
+                                "user_id"=>$userId]);
         }
 
         $posts = $postManager->findAll(["content","ASC"]);
