@@ -322,5 +322,21 @@ class ForumController extends AbstractController implements ControllerInterface{
         ];
     }
 
+    public function displayPost($id){
+        $postManager = new PostManager();
+        $post = $postManager->findOneById($id);
+        // var_dump($post);
+
+        $topicManager = new TopicManager();
+
+        return[
+            "view" => VIEW_DIR. "forum/singlePost.php",
+            "meta_description" => "post", 
+            "data" => [
+                "post" => $post,
+            ]
+        ];
+    }
+
 }
 

@@ -20,7 +20,6 @@ class UserManager extends Manager{
             DAO::select($sql,['email'=>$email],false),
             $this->className);
     }
-
 }
 
 

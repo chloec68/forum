@@ -4,6 +4,7 @@ namespace Controller;
 use App\AbstractController;
 use App\ControllerInterface;
 use Model\Managers\UserManager;
+use Model\Managers\PostManager;
 
 class HomeController extends AbstractController implements ControllerInterface {
 
@@ -25,6 +26,24 @@ class HomeController extends AbstractController implements ControllerInterface {
             "meta_description" => "Liste des utilisateurs du forum",
             "data" => [ 
                 "users" => $users 
+            ]
+        ];
+    }
+
+    public function userProfile($id){
+        $userManager = new UserManager();
+        $user = $userManager->findOneById($id);
+
+        $postManager = new PostManager();
+        // ici les posts ne sont pas récupérés : $posts = NULL
+        $posts = $postManager->findPostsByUser($id);
+
+        return [
+            "view" => VIEW_DIR. "security/userProfile.php",
+            "meta_description" => "User's profile",
+            "data" => [
+                "user"=>$user,
+                "posts"=>$posts
             ]
         ];
     }

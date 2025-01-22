@@ -9,7 +9,7 @@
             <?php
             foreach($users as $user){ ?>
             <div class="userProfile-box">
-            <img id="userProfile-avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
+            <a href="index.php?ctrl=home&action=userProfile&id=<?=$user->getId()?>"><img id="userProfile-avatar" src="public/avatar/avatar1.jpg" alt="avatar1"></a>
                 <p>Username : <?= $user ?>
                 <p>Email : <?= $user->getEmail() ?></p>
                 <p>Role : <?= $user->getrole() ?></p>

@@ -6,6 +6,8 @@ use App\ControllerInterface;
 
 use Model\Managers\UserManager;
 
+use App\Session;
+
 class SecurityController extends AbstractController{
     // contiendra les méthodes liées à l'authentification : register, login et logout
 
@@ -37,11 +39,12 @@ class SecurityController extends AbstractController{
             if(preg_match($regex,$pass1)){
 
                 $user = $userManager->findUser($email);
-            // var_dump($user);die;
+                // var_dump($user);die;
 
                 if($user){
                     // var_dump($user);die;
-                    header("Location: index.php?ctrl=security&action=login");
+                    // header("Location: index.php?ctrl=security&action=login");exit;
+                    $this->redirectTo("security","login");
 
                 }else{
                     // si l'utilisateur n'existe pas, on l'ajoute en BDD
@@ -53,18 +56,18 @@ class SecurityController extends AbstractController{
                                 "role"=>"user"];
                 
                         $user = $userManager->add($data);
-                        $message="Signed up!";
+                        $this->redirectTo("security","login");
             
                         }else{
                             if($pass1 !==$pass2){
                                 $message = "passwords don't match";
-                            }else if(strlen($pass1<12)){
-                                $message= "password is too short";
                             }else{
                                 $message = "couldn't create account";
                             }
                         }
                 }
+            }else{
+                $message="Password must contain at least 12 characters, a special character # @ % and an Upperacase character";
             }
         }
 
@@ -91,6 +94,8 @@ class SecurityController extends AbstractController{
         $password = filter_input(INPUT_POST,"password",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $message="";
 
+        $session = new Session;
+
             if($email && $password){
                 // var_dump($password);
                 // var_dump($email);die;
@@ -114,16 +119,25 @@ class SecurityController extends AbstractController{
                     // var_dump($check); die;
 
                     if($hash && password_verify($password,$hash)){
-                        $_SESSION["user"]=$user;
-                        header("Location: index.php?ctrl=home&action=index");
+                        $session->setUser($user);// $_SESSION["user"]=$user;
+                        $session->addFlash("success","Successfully connected");
+                        $this->redirectTo("home","index");
+                        // header("Location: index.php?ctrl=home&action=index");
+                        // exit;
                     }else{
-                        $message="User unknown or wrong password";
-                        header("Location: index.php?ctrl=security&action=login");
+                        $session->addFlash("error","Something went wrong");
+                        // $message="User unknown or wrong password";
+                        $this->redirectTo("home","index");
+                        // header("Location: index.php?ctrl=home&action=index");
+                        // exit;
                     }
 
                 }else{
-                    $message = "User unknown or wrong password";
-                    header("Location : index.php?ctrl=security&action=login");
+                    $session->addFlash("error","Something went wrong");
+                    // $message = "User unknown or wrong password";
+                    $this->redirectTo("home","index");
+                    // header("Location: index.php?ctrl=home&action=index");
+                    // exit;
                 }
             }
     
@@ -136,11 +150,15 @@ class SecurityController extends AbstractController{
             ];
     }
 
-
     
     public function logout() {
-        unset($_SESSION["user"]);
-        header("Location : index.php?ctrl=home&action=index");
+        $session = new Session ; 
+        $user = $session->getUser();
+        if($user){
+            unset($_SESSION["user"]);
+            // header("Location : index.php?ctrl=home&action=index");exit;
+            $this->redirectTo("home","index");
+        }
     }
 }
 

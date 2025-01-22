@@ -28,4 +28,16 @@ class PostManager extends Manager{
         );
     }
 
+    public function findPostsByUser($id){
+
+        $sql = "SELECT t.id_post, t.content, t.dateOfCreation, t.topic_id, topic.title FROM " . $this->tableName . " t 
+        INNER JOIN topic ON t.topic_id = topic.id_topic
+        WHERE t.user_id = :id";
+
+        return $this->getMultipleResults(
+            DAO::select($sql, ['id'=>$id]),
+            $this->className
+        );
+    }
+
 }

@@ -23,8 +23,8 @@
         <div id="wrapper"> 
             <div id="mainpage">
                 <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
-                <h3 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h3>
-                <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
+                <h3 class="message" style="color: red; text-align: center"><?= App\Session::getFlash("error") ?></h3>
+                <h3 class="message" style="color: var(--bright-green); text-align: center"><?= App\Session::getFlash("success") ?></h3>
                 <header>
                     <nav>
                         <div id="nav__logo">
