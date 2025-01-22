@@ -3,12 +3,14 @@
 ?>
 
 <h1>Edit category</h1>
-
+<div class="editCategory-wrapper">
 <form action="index.php?ctrl=forum&action=editCategory&id=<?= $category->getId() ?>" method="post">
-    <label for="updatedCategory">new category name:</label>
+    <input  class = "editCategory-input" name="updatedCategory" placeholder="Edit category"  value="<?= $category->getCategoryName()?>"> </input>
     <br>
-    <input  name="updatedCategory" id="updatedCategory"  value="<?= $category->getCategoryName()?>"> </input>
-    <br>
-    <input type="submit" name="submit" value="Submit" id="submit">
+    <input type="submit" name="submit" value="Submit" id="edit-Category-submit">
 </form>
+
+</div>
+
+
 

@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    /* transition: all 0.5 ease-out; */
 }
 
 :root{
@@ -146,7 +145,7 @@ nav{
         top:6px;
     }
 
-    /* NAV-RIGHT - CONNECTED STATUS - LOGOUT BUTTON + CONNECTED USER */
+    /* CONNECTED STATUS -> LOGOUT BUTTON + CONNECTED USER */
 
     .connecterUser-container{
         display: flex;
@@ -314,12 +313,6 @@ footer{
     margin-right:20px;
 }
 
-/* .post-links-and-path{
-    display: flex;
-    width: 100%;
-    gap:20%;
-} */
-
 .post-path{
     width:100%;
 }
@@ -383,7 +376,6 @@ footer{
         }
 
         #line{
-            /* margin-top:5%; */
             color:var(--light-grey);
         }
     }
@@ -465,21 +457,11 @@ footer{
         }
     }
 
- /************************************************************************** NEW TOPIC FORM,CATEGORY,POST FORMS VIEWS *****/
+ /************************************************************************** CREATE TOPIC+POST FORM *****/
     .createTopic-wrapper{
         display:flex;
         justify-content:center;
         padding:50px;
-    }
-    
-    .categories__wrapper-form{
-        
-      display:flex;
-      flex-direction:column;
-    }
-
-    .topics__wrapper-form{
-        height:fit-content;
     }
 
     .form-wrapper{
@@ -512,13 +494,17 @@ footer{
                 padding:5px;
             }
 
+            #submit:hover{
+                cursor:pointer;
+            }
+
         }
     }
 
 
- /************************************************************************** CREATE A CATEGORY__FORM (VIEW) *****/
+ /************************************************************************** CREATE + EDIT A CATEGORY FORMS *****/
 
-    .createCategory-wrapper {
+    .createCategory-wrapper,.editCategory-wrapper{
         width:fit-content;
         margin: 100px auto 0 auto;
     
@@ -534,7 +520,7 @@ footer{
         margin-bottom:20px;
     }
     
-    .createCategory-input,
+    .createCategory-input,.editCategory-input,
     textarea {
         font-size: 30px;
         background-color:var(--black);
@@ -544,7 +530,7 @@ footer{
         padding: 10.5px;
         }
     
-    #createCategory-submit{
+    #createCategory-submit,#edit-Category-submit{
         display:block;
         border: 4px solid var(--purple);
         font-weight: 700;
@@ -557,7 +543,7 @@ footer{
         width:30%;
     }
     
-    #createCategory-submit:hover,#submit{
+    #createCategory-submit:hover,#edit-Category-submit:hover{
         background-color:var(--purple);
         cursor:pointer;
         margin:auto;
