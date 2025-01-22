@@ -153,23 +153,31 @@ class ForumController extends AbstractController implements ControllerInterface{
         // j'ai filtré mes données venant du form pour me protéger de la faille XSS
         $category = $categoryManager->findOneById($idCategory);
 
+
         
         // Si la sanitisation s'est bien passé pour les DEUX champs (car je souhaite que le créateur d'un topic crée obligatoirement un premier post)
         if($newTopic && $firstPost){
             // j'appelle la fonction add de mon topic Manager
             // Mon topicManager n'a pas de fonction add mais hérite du manager général 
             // grâce au principe d'héritage, une classe fille (topic manager) peut hériter des classes de sa classe mère (manager)
-            $topicManager->add(['title' => $newTopic,
+            $idTopic = $topicManager->add(['title' => $newTopic,
                                 'user_id'=>$userId,
                                 'category_id'=>$idCategory,
                                 'closed'=>0]);
             // j'appelle le post manager pour pouvoir hériter du add
-            // $postManager->add(['content'=>$firstPost]);
+            $idTopic =
+
+            $postManager->add([
+                "content"=>$firstPost,
+                "user_id"=>$userId,
+                "topic_id"=>$idTopic
+            ]);
 
             header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$idCategory");
             exit;
         }else{
-            echo "You must write a first post if you wish to create a topic";
+            $session->addFlash("error","you must type a first post if you wish to create a topic");
+            header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$idCategory");
             die;
         }
         $topics = $topicManager->findAll(["title","ASC"]);
