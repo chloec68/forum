@@ -67,12 +67,13 @@ class ForumController extends AbstractController implements ControllerInterface{
     public function listPostsByTopic($id){
         $postManager = new PostManager();
         $topicManager = new TopicManager();
+        $session = new Session();
         $topic = $topicManager ->findOneById($id);
         $posts = $postManager->findPostsByTopic($id);
+        // $idTopic = $topic->getId();
 
         if(empty($posts)){
-            echo "no post yet";
-            exit;
+            $session->addFlash("error","No post yet");
         };
 
         return [
@@ -202,12 +203,12 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topicManager = new TopicManager();
         $session = new Session();
 
+        $this->restrictTo("ROLE_USER");
+
         $user = $session->getUser();
         // var_dump($user);
         $userId = $user->getId();
         // var_dump($userId);
-
-        $this->restrictTo("ROLE_USER");
 
         $newPost = filter_input(INPUT_POST,"content",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // var_dump($newPost);

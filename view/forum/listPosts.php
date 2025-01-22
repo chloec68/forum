@@ -5,12 +5,14 @@
 
 <h1>Posts</h1>
 
-<?php
-foreach($posts as $post ){ ?>
+<?php if($posts){
+    foreach($posts as $post){?>
     <p><?= $post ?></p><br>
 <?php
+    }
 }
 ?>
+
 
 <div class="form-wrapper topics__wrapper-form">
         <form action="index.php?ctrl=forum&action=createPost&id=<?= $topic->getId()?>" method="post">
