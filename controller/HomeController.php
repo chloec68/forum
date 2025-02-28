@@ -30,22 +30,4 @@ class HomeController extends AbstractController implements ControllerInterface {
         ];
     }
 
-    public function userProfile($id){
-        $userManager = new UserManager();
-        $user = $userManager->findOneById($id);
-
-        $postManager = new PostManager();
-    
-        $posts = $postManager->findPostsByUser($id);
-
-        return [
-            "view" => VIEW_DIR. "security/userProfile.php",
-            "meta_description" => "User's profile",
-            "data" => [
-                "user"=>$user,
-                "posts"=>$posts
-            ]
-        ];
-    }
-
 }
