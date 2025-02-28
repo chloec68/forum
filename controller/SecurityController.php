@@ -1,12 +1,13 @@
 <?php
 namespace Controller;
 
+use App\Session;
 use App\AbstractController;
+
 use App\ControllerInterface;
 
+use Model\Managers\PostManager;
 use Model\Managers\UserManager;
-
-use App\Session;
 
 class SecurityController extends AbstractController{
     // contiendra les méthodes liées à l'authentification : register, login et logout
@@ -48,7 +49,7 @@ class SecurityController extends AbstractController{
 
                 }else{
                     // si l'utilisateur n'existe pas, on l'ajoute en BDD
-                    if($pass1==$pass2 && strlen($pass1)>=12){
+                    if($pass1==$pass2 && strlen($pass1)>=3){
 
                         $data = ["userName" => $userName,
                                 "email"=> $email,
@@ -160,6 +161,28 @@ class SecurityController extends AbstractController{
             $this->redirectTo("home","index");
         }
     }
+
+    public function userProfile($id){
+        $userManager = new UserManager();
+        // $user = $session->getUser(); 
+        $user = $userManager->findOneById($id);
+        if($user){
+           $id = $user->getId();
+            $postManager = new PostManager();
+            $posts = $postManager->findPostsByUser($id);
+        }
+
+        return [
+            "view" => VIEW_DIR. "security/userProfile.php",
+            "meta_description" => "User's profile",
+            "data" => [
+                "id"=>$id,
+                "posts"=>$posts,
+                'user'=>$user
+            ]
+        ];
+    }
+
 }
 
 

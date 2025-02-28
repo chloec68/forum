@@ -16,7 +16,7 @@
                 <div class="listPosts__singlePost">
                     <div class="user">
                         <img id="avatar" src="public/avatar/avatar1.jpg" alt="avatar1">
-                        <p><p><?= $topic->getUser()->getUserName() ?></p></p>
+                        <p><?= $post->getUser()->getUserName() ?></p>
                     </div>
                     <div class="post-links-and-path">
                             <div class="post-path">

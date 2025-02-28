@@ -20,10 +20,10 @@ abstract class DAO{
     /* attribut privé et statique $host auquel la valeur assignée est l'adresse du serveur MySql
     static => attribut partagé par toutes les instances de la classe DAO 
     => on veut une seule connexion à la BDD partagée dans toute l'application */
-    private static $host   = 'mysql:host=127.0.0.1;port=8889'; //     mysql:host=127.0.0.1;port=3306
+    private static $host   = 'mysql:host=127.0.0.1;port=3306'; //      mysql:host=127.0.0.1;port=8889
     private static $dbname = 'forum_chloe';
     private static $dbuser = 'root';
-    private static $dbpass = 'root';
+    private static $dbpass = ''; //root
 
     private static $bdd;
                         /* l'idée de base avec DAO (Data Access Object) est de séparer la logique métier (=traitement des données) de 

@@ -131,49 +131,36 @@ class ForumController extends AbstractController implements ControllerInterface{
         $postManager = new PostManager();
         $session = new Session();
 
-        $this->restrictTo("ROLE_USER");
-
         $user = $session->getUser();
-        $userId = $user->getId();
-
-
-        // le form d'ajout est dans ma vue détail catégorie, je vérifie que la mathod du form est bien en post et que la methode s'appelle bien create topic
-        $newTopic = filter_input(INPUT_POST,"title",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        $firstPost = filter_input(INPUT_POST,"firstPost",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-        // Je teste si le filtre est bien appliqué à ma variable ; 
-        // var_dump($newTopic);
-        // var_dump($firstPost);
-        // die;
-
-        // j'ai filtré mes données venant du form pour me protéger de la faille XSS
         $category = $categoryManager->findOneById($idCategory);
-        
-        // Si la sanitisation s'est bien passé pour les DEUX champs (car je souhaite que le créateur d'un topic crée obligatoirement un premier post)
-        if($newTopic && $firstPost){
-            // j'appelle la fonction add de mon topic Manager
-            // Mon topicManager n'a pas de fonction add mais hérite du manager général 
-            // grâce au principe d'héritage, une classe fille (topic manager) peut hériter des classes de sa classe mère (manager)
-            $idTopic = $topicManager->add(['title' => $newTopic,
-                                'user_id'=>$userId,
-                                'category_id'=>$idCategory,
-                                'closed'=>0]);
-            // j'appelle le post manager pour pouvoir hériter du add
-            $idTopic =
+        if(isset($user) && $user !==false){
+            $userId = $user->getId();
+            $newTopic = filter_input(INPUT_POST,"title",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $firstPost = filter_input(INPUT_POST,"firstPost",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+           
+            if($newTopic && $firstPost){
 
-            $postManager->add([
-                "content"=>$firstPost,
-                "user_id"=>$userId,
-                "topic_id"=>$idTopic
-            ]);
-            $session->addFlash("success","Success!");
-            header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$idCategory");
-            exit;
+                $idTopic = $topicManager->add(['title' => $newTopic,
+                'user_id'=>$userId,
+                'category_id'=>$idCategory,
+                'closed'=>0]);
+
+                $postManager->add([
+                    "content"=>$firstPost,
+                    "user_id"=>$userId,
+                    "topic_id"=>$idTopic
+                ]);
+
+                $session->addFlash("success","Success!");
+                header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$idCategory");
+                exit;
+            }else{
+                $session->addFlash("error","you must type a first post if you wish to create a topic");
+                header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$idCategory");
+                die;
+            }
         }else{
-            $session->addFlash("error","you must type a first post if you wish to create a topic");
-            header("Location: index.php?ctrl=forum&action=listTopicsByCategory&id=$idCategory");
-            die;
+            $session->addFlash('error','you must be connected');
         }
         $topics = $topicManager->findAll(["title","ASC"]);
 
@@ -197,25 +184,19 @@ class ForumController extends AbstractController implements ControllerInterface{
         $topicManager = new TopicManager();
         $session = new Session();
 
-        $this->restrictTo("ROLE_USER");
-
         $user = $session->getUser();
-        // var_dump($user);
-        $userId = $user->getId();
-        // var_dump($userId);
-
-        $newPost = filter_input(INPUT_POST,"content",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        // var_dump($newPost);
-        // die;
-
         $topic = $topicManager->findOneById($idTopic);
-        // var_dump($topic);
-        // die;
+        if(isset($user) && $user!==false){
+            $userId = $user->getId();
+            $newPost = filter_input(INPUT_POST,"content",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if($newPost){
-            $postManager->add(["content"=>$newPost,
-                                "topic_id"=>$idTopic,
-                                "user_id"=>$userId]);
+            if($newPost){
+                $postManager->add(["content"=>$newPost,
+                                    "topic_id"=>$idTopic,
+                                    "user_id"=>$userId]);
+            }
+        }else{
+            $session->addFlash('error','you must be connected');
         }
 
         $posts = $postManager->findAll(["content","ASC"]);

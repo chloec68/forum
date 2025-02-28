@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,7 +51,7 @@
                             // si l'utilisateur est connecté 
                             if(App\Session::getUser()){
                                 ?>
-                                <div class="connecterUser-container"><a class="connectedUser" href="index.php?ctrl=security&action=profile"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a></div>
+                                <div class="connecterUser-container"><a class="connectedUser" href="#"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a></div>
                                 <a class="signOut-button sign" href="index.php?ctrl=security&action=logout">Déconnexion</a>
                                 <?php
                             }
