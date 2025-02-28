@@ -3,7 +3,7 @@
     $posts = $result['data']['posts'];
 ?>
 
-<p><?= $user->getUserName()?></p>
+<p><?= $user->getUserName() ?></p>
 <p><?= $user->getEmail()?></p>
 <p><?= $user->getRegistrationDate()?></p>
 <p><?=$user->getAvatar()?><p>
